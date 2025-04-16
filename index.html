@@ -65,6 +65,81 @@
     html { scroll-behavior: smooth; }
     body { font-family: 'Poppins', sans-serif; overflow-x: hidden; }
     
+    /* Styles pour le carrousel du hero */
+.hero-container {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.image-carousel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.carousel-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+}
+
+.scroll-icon {
+  width: 30px;
+  height: 50px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+}
+
+.scroll-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #fff;
+  border-radius: 50%;
+  animation: scroll-down 2s ease infinite;
+}
+
+@keyframes scroll-down {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  40% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 0;
+  }
+}
     /* Navbar & Hamburger */
     header { transition: background 0.3s, box-shadow 0.3s; }
     .nav-link {
@@ -621,57 +696,51 @@
   
   <!-- MAIN CONTENT -->
   <main>
-    <!-- HERO SECTION - Immersive 3D Hero with Particles -->
-    <section class="hero-container tilt-container">
-      <!-- Background -->
-      <div class="hero-background"></div>
-      <div class="hero-grid"></div>
-      <div class="hero-gradient-overlay"></div>
-      
-      <!-- Animated shapes -->
-      <div class="hero-shapes">
-        <div class="hero-shape"></div>
-        <div class="hero-shape"></div>
-        <div class="hero-shape"></div>
+    <!-- HERO SECTION - avec carrousel d'images -->
+<section class="hero-container relative">
+  <!-- Carrousel d'images -->
+  <div class="image-carousel absolute inset-0 w-full h-full">
+    <div class="carousel-slide absolute inset-0 w-full h-full bg-cover bg-center opacity-0 transition-opacity duration-1000 ease-in-out" style="background-image: url('assets/images/5-1.jpg');"></div>
+    <div class="carousel-slide absolute inset-0 w-full h-full bg-cover bg-center opacity-0 transition-opacity duration-1000 ease-in-out" style="background-image: url('assets/images/6-1.jpg');"></div>
+    <div class="carousel-slide absolute inset-0 w-full h-full bg-cover bg-center opacity-0 transition-opacity duration-1000 ease-in-out" style="background-image: url('assets/images/12-1.jpg');"></div>
+    <div class="carousel-slide absolute inset-0 w-full h-full bg-cover bg-center opacity-0 transition-opacity duration-1000 ease-in-out" style="background-image: url('assets/images/14-1.jpg');"></div>
+  </div>
+  
+  <!-- Assombrissement -->
+  <div class="absolute inset-0 bg-black bg-opacity-60 z-[1]"></div>
+  
+  <!-- Main hero content -->
+  <div class="relative h-screen flex items-center justify-center px-6 z-10">
+    <div class="max-w-6xl mx-auto text-center">
+      <div class="mb-4 inline-block">
+        <span class="inline-block py-1 px-3 rounded-full bg-white bg-opacity-10 text-white text-sm font-semibold mb-4">
+          ESTABLISHED 1995
+        </span>
       </div>
-      
-      <!-- Floating particles -->
-      <div class="particles-container" id="particles-container"></div>
-      
-      <!-- Main hero content -->
-      <div class="relative h-full flex items-center justify-center px-6 z-10">
-        <div class="max-w-6xl mx-auto text-center">
-          <div class="mb-4 inline-block">
-            <span class="inline-block py-1 px-3 rounded-full bg-white bg-opacity-10 text-white text-sm font-semibold mb-4">
-              ESTABLISHED 1995
-            </span>
-          </div>
-          <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight">
-            <span class="block stagger-item">Inspiring</span>
-            <span class="block text-accent stagger-item">Global Leaders</span>
-            <span class="block stagger-item">of Tomorrow</span>
-          </h1>
-          <p class="text-xl md:text-2xl text-white opacity-90 mb-8 max-w-3xl mx-auto stagger-item">
-            Join a community where academic excellence meets cultural diversity, 
-            creating a unique environment for future innovators and global citizens.
-          </p>
-          <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 stagger-item">
-            <a href="admissions.html" class="magnetic-button px-8 py-4 bg-accent hover:bg-accent-light text-white font-bold rounded-full transition-all transform hover:scale-105 hover:shadow-xl relative overflow-hidden group ripple">
-              <span class="relative z-10">Begin Your Journey</span>
-              <span class="absolute inset-0 bg-white bg-opacity-20 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500"></span>
-            </a>
-            <a href="#discover-more" class="magnetic-button px-8 py-4 bg-transparent text-white font-bold rounded-full transition-all border-2 border-white border-opacity-30 hover:border-opacity-70 hover:shadow-xl">
-              Discover More
-            </a>
-          </div>
-        </div>
+      <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight">
+        <span class="block stagger-item">Inspiring</span>
+        <span class="block text-accent stagger-item">Global Leaders</span>
+        <span class="block stagger-item">of Tomorrow</span>
+      </h1>
+      <p class="text-xl md:text-2xl text-white opacity-90 mb-8 max-w-3xl mx-auto stagger-item">
+        Join a community where academic excellence meets cultural diversity, 
+        creating a unique environment for future innovators and global citizens.
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 stagger-item">
+        <a href="admissions.html" class="magnetic-button px-8 py-4 bg-accent hover:bg-accent-light text-white font-bold rounded-full transition-all transform hover:scale-105 hover:shadow-xl relative overflow-hidden group ripple">
+          <span class="relative z-10">Begin Your Journey</span>
+          <span class="absolute inset-0 bg-white bg-opacity-20 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500"></span>
+        </a>
+        <a href="#discover-more" class="magnetic-button px-8 py-4 bg-transparent text-white font-bold rounded-full transition-all border-2 border-white border-opacity-30 hover:border-opacity-70 hover:shadow-xl">
+          Discover More
+        </a>
       </div>
-      
-      
-      
-      <!-- Wave separator -->
-     
-    </section>
+    </div>
+  </div>
+  
+  <!-- Scroll indicator -->
+  
+</section>
     
     <!-- STATISTICS SECTION - Interactive Counter and Magnetic Tiles -->
     <section id="discover-more" class="py-24 bg-white relative overflow-hidden">
@@ -1463,6 +1532,37 @@
         });
       });
     });
+
+    document.addEventListener('DOMContentLoaded', function() {
+    // Configuration du carrousel d'images
+    const slides = document.querySelectorAll('.carousel-slide');
+    let currentSlide = 0;
+    
+    // Fonction pour afficher une slide
+    function showSlide(index) {
+      // Masquer toutes les slides
+      slides.forEach(slide => {
+        slide.style.opacity = 0;
+        slide.style.zIndex = 0;
+      });
+      
+      // Afficher la slide actuelle
+      slides[index].style.opacity = 1;
+      slides[index].style.zIndex = 1;
+    }
+    
+    // Afficher la première slide au chargement
+    showSlide(currentSlide);
+    
+    // Fonction pour passer à la slide suivante
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % slides.length;
+      showSlide(currentSlide);
+    }
+    
+    // Changer d'image toutes les 5 secondes
+    setInterval(nextSlide, 5000);
+  });
   </script>
 </body>
 </html>
