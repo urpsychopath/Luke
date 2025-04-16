@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LIS AB - Home</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- GSAP et ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <!-- AOS - Animate On Scroll -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'primary': '#012E67',
+            'primary-dark': '#001b3e',
+            'accent': '#F58220',
+            'accent-light': '#ff9f4d',
+          },
+          fontFamily: {
+            'poppins': ['Poppins', 'sans-serif'],
+            'raleway': ['Raleway', 'sans-serif'],
+          },
+          height: {
+            '100': '100vh',
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-20px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Poppins', sans-serif; overflow-x: hidden; }
+    
+    /* Navbar & Hamburger */
+    header { transition: background 0.3s, box-shadow 0.3s; }
+    .nav-link {
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: #F58220;
+      transition: width 0.3s;
+    }
+    .nav-link:hover::after, .nav-link.active::after {
+      width: 100%;
+    }
+    .hamburger-line {
+      transition: all 0.3s ease;
+    }
+    .hamburger.open .line-1 {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .hamburger.open .line-2 { opacity: 0; }
+    .hamburger.open .line-3 {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+    
+    /* Parallax Video Section */
+    .parallax { perspective: 1000px; transform-style: preserve-3d; }
+    .parallax-layer { will-change: transform; }
+    .video-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(rgba(1,46,103,0.3), rgba(0,0,0,0.6));
+    }
+    
+    /* Text gradient */
+    .text-gradient {
+      background: linear-gradient(90deg, #F58220, #ff9f4d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    /* Loader */
+    .loader {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      display: flex; justify-content: center; align-items: center;
+      background-color: #012E67;
+      z-index: 9999;
+      transition: opacity 0.8s, visibility 0.8s;
+    }
+    .loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .loader-content { display: flex; flex-direction: column; align-items: center; }
+    .loader-spinner {
+      width: 80px; height: 80px; border: 4px solid rgba(255,255,255,0.1);
+      border-radius: 50%; border-top: 4px solid #F58220; animation: spin 1s linear infinite;
+    }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .loader-text {
+      margin-top: 20px; font-family: 'Raleway', sans-serif; font-weight: 300;
+      letter-spacing: 5px; color: white; opacity: 0; animation: fadeIn 2s forwards 0.5s;
+    }
+    @keyframes fadeIn { to { opacity: 1; } }
+    
+    /* Custom cursor */
+    .custom-cursor, .cursor-dot { position: fixed; pointer-events: none; z-index: 10000; display: none; }
+    .custom-cursor {
+      width: 40px; height: 40px; border: 2px solid rgba(245,130,32,0.5);
+      border-radius: 50%; transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s, border-color 0.3s;
+    }
+    .cursor-dot {
+      width: 8px; height: 8px; background-color: #F58220; border-radius: 50%;
+      transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s, background-color 0.3s;
+    }
+    
+    /* Section Mask for Hero Carousel */
+    .hero-mask { clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%); }
+    
+    /* Contact Form Focus */
+    .form-input:focus {
+      border-color: #F58220; box-shadow: 0 0 0 3px rgba(245,130,32,0.2);
+    }
+    
+    /* Smooth scroll indicator */
+    .scroll-indicator {
+      position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; z-index: 10;
+      animation: fadeInUp 2s ease infinite;
+    }
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translate(-50%, 20px); }
+      100% { opacity: 1; transform: translate(-50%, 0); }
+    }
+    
+    /* IMPROVED SLIDE CAROUSEL */
+    .slide-carousel {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      background-size: cover;
+      background-position: center;
+      transition: opacity 1s ease-in-out;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .slide.active {
+      opacity: 1;
+      z-index: 1;
+    }
+    .slide-content {
+      z-index: 2;
+      width: 100%;
+      max-width: 1200px;
+      padding: 0 20px;
+    }
+    .slide-nav-dot {
+      transition: background-color 0.3s, transform 0.3s;
+    }
+    .slide-nav-dot.active {
+      background-color: #F58220;
+      transform: scale(1.2);
+    }
+    
+    /* FIXED MOBILE MENU */
+    #mobile-menu {
+      transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+    }
+    .mobile-dropdown-content {
+      transition: max-height 0.3s ease;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-800">
+  <!-- Loader -->
+  <div class="loader" id="page-loader">
+    <div class="loader-content">
+      <div class="loader-spinner"></div>
+      <div class="loader-text">LUKE INTERNATIONAL SCHOOL</div>
+    </div>
+  </div>
+  
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" id="custom-cursor"></div>
+  <div class="cursor-dot" id="cursor-dot"></div>
+  
+  <!-- HEADER / NAVBAR -->
+  <header class="w-full fixed top-0 left-0 z-50 bg-primary bg-opacity-95" id="main-header">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center py-4">
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center">
+          <img src="/api/placeholder/120/48" alt="LIS AB Logo" class="h-12 w-auto transition-all duration-300">
+        </a>
+        <!-- Navigation Desktop -->
+        <nav class="hidden lg:flex space-x-8 text-sm font-medium">
+         
+          <!-- Dropdown About -->
+          <div class="relative group">
+            <button class="nav-link inline-flex items-center text-white hover:text-accent transition-colors focus:outline-none">
+              <span>ABOUT</span>
+              <i class="ml-1 fas fa-chevron-down text-xs transition-transform group-hover:rotate-180"></i>
+            </button>
+            <div class="absolute left-0 mt-2 w-60 bg-white rounded-xl shadow-2xl border-t-4 border-accent overflow-hidden hidden group-hover:block">
+              <a href="about.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 hover:text-accent transition-colors">About Us</a>
+              <a href="about-board.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 hover:text-accent transition-colors">Our Board</a>
+              <a href="about-staff.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 hover:text-accent transition-colors">Our Staff</a>
+            </div>
+          </div>
+          <!-- Dropdown Admissions -->
+          <div class="relative group">
+            <button class="nav-link inline-flex items-center text-white hover:text-accent transition-colors focus:outline-none">
+              <span>ADMISSIONS</span>
+              <i class="ml-1 fas fa-chevron-down text-xs transition-transform group-hover:rotate-180"></i>
+            </button>
+            <div class="absolute left-0 mt-2 w-60 bg-white rounded-xl shadow-2xl border-t-4 border-accent overflow-hidden hidden group-hover:block">
+              <a href="admissions.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 hover:text-accent transition-colors">Admissions Welcome</a>
+              <a href="event.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 hover:text-accent transition-colors">Events &amp; Deadlines</a>
+              <a href="placement.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 hover:text-accent transition-colors">Placement Test</a>
+              <a href="application.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 hover:text-accent transition-colors">Application Form</a>
+            </div>
+          </div>
+          <a href="academics.html" class="nav-link text-white hover:text-accent transition-colors">ACADEMICS</a>
+          <a href="afterschool.html" class="nav-link text-white hover:text-accent transition-colors">AFTER-SCHOOL</a>
+          <!-- Dropdown School Info -->
+          <div class="relative group">
+            <button class="nav-link inline-flex items-center text-white hover:text-accent transition-colors focus:outline-none">
+              <span>SCHOOL INFO</span>
+              <i class="ml-1 fas fa-chevron-down text-xs transition-transform group-hover:rotate-180"></i>
+            </button>
+            <div class="absolute left-0 mt-2 w-60 bg-white rounded-xl shadow-2xl border-t-4 border-accent overflow-hidden hidden group-hover:block">
+              <a href="location.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 hover:text-accent transition-colors">Location</a>
+              <a href="newsletter.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 hover:text-accent transition-colors">Newsletter</a>
+              <a href="parent.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 hover:text-accent transition-colors">Parent Association</a>
+              <a href="calendar.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 hover:text-accent transition-colors">Calendar</a>
+            </div>
+          </div>
+          <a href="gallery.html" class="nav-link text-white hover:text-accent transition-colors">EVENTS</a>
+          <a href="fr/index.html" class="nav-link flex items-center text-white hover:text-accent transition-colors">
+            <span class="mr-1">FR</span>
+            <i class="fas fa-globe-americas text-xs"></i>
+          </a>
+        </nav>
+        <!-- CTA (Desktop) -->
+        <div class="hidden lg:block">
+          <a href="admissions.html" class="bg-accent hover:bg-accent-light text-white px-6 py-2 rounded-full font-semibold transition-all transform hover:scale-105">Apply Now</a>
+        </div>
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="lg:hidden text-white focus:outline-none">
+          <div class="hamburger">
+            <span class="hamburger-line block w-8 h-0.5 bg-white mb-1.5 transition-all"></span>
+            <span class="hamburger-line block w-8 h-0.5 bg-white mb-1.5 transition-all"></span>
+            <span class="hamburger-line block w-8 h-0.5 bg-white transition-all"></span>
+          </div>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-primary z-30 flex flex-col justify-center items-center transform translate-x-full transition-transform duration-500 ease-in-out">
+      <button id="mobile-close-btn" class="absolute top-6 right-6 text-white">
+        <i class="fas fa-times fa-2x"></i>
+      </button>
+      <nav class="text-center">
+        <ul class="space-y-6">
+          
+            <button class="mobile-dropdown-btn text-white text-2xl font-light hover:text-accent transition-colors flex items-center justify-center">
+              ABOUT <i class="ml-2 fas fa-chevron-down text-xs"></i>
+            </button>
+            <ul class="mobile-dropdown-content hidden mt-4 space-y-3">
+              <li><a href="about.html" class="text-white text-lg opacity-80 hover:text-accent transition-colors">About Us</a></li>
+              <li><a href="about-board.html" class="text-white text-lg opacity-80 hover:text-accent transition-colors">Our Board</a></li>
+              <li><a href="about-staff.html" class="text-white text-lg opacity-80 hover:text-accent transition-colors">Our Staff</a></li>
+            </ul>
+          </li>
+          <li>
+            <button class="mobile-dropdown-btn text-white text-2xl font-light hover:text-accent transition-colors flex items-center justify-center">
+              ADMISSIONS <i class="ml-2 fas fa-chevron-down text-xs"></i>
+            </button>
+            <ul class="mobile-dropdown-content hidden mt-4 space-y-3">
+              <li><a href="admissions.html" class="text-white text-lg opacity-80 hover:text-accent transition-colors">Admissions Welcome</a></li>
+              <li><a href="event.html" class="text-white text-lg opacity-80 hover:text-accent transition-colors">Events &amp; Deadlines</a></li>
+              <li><a href="placement.html" class="text-white text-lg opacity-80 hover:text-accent transition-colors">Placement Test</a></li>
+              <li><a href="application.html" class="text-white text-lg opacity-80 hover:text-accent transition-colors">Application Form</a></li>
+            </ul>
+          </li>
+          <li><a href="academics.html" class="text-white text-2xl font-light hover:text-accent transition-colors">ACADEMICS</a></li>
+          <li><a href="afterschool.html" class="text-white text-2xl font-light hover:text-accent transition-colors">AFTER-SCHOOL</a></li>
+          <li>
+            <button class="mobile-dropdown-btn text-white text-2xl font-light hover:text-accent transition-colors flex items-center justify-center">
+              SCHOOL INFO <i class="ml-2 fas fa-chevron-down text-xs"></i>
+            </button>
+            <ul class="mobile-dropdown-content hidden mt-4 space-y-3">
+              <li><a href="location.html" class="text-white text-lg opacity-80 hover:text-accent transition-colors">Location</a></li>
+              <li><a href="newsletter.html" class="text-white text-lg opacity-80 hover:text-accent transition-colors">Newsletter</a></li>
+              <li><a href="parent.html" class="text-white text-lg opacity-80 hover:text-accent transition-colors">Parent Association</a></li>
+              <li><a href="calendar.html" class="text-white text-lg opacity-80 hover:text-accent transition-colors">Calendar</a></li>
+            </ul>
+          </li>
+          <li><a href="gallery.html" class="text-white text-2xl font-light hover:text-accent transition-colors">EVENTS</a></li>
+          <li><a href="fr/index.html" class="text-white text-2xl font-light hover:text-accent transition-colors">FR</a></li>
+        </ul>
+      </nav>
+      <div class="mt-16 flex space-x-6">
+        <a href="#" class="text-white hover:text-accent transition-colors"><i class="fab fa-facebook-f fa-lg"></i></a>
+        <a href="#" class="text-white hover:text-accent transition-colors"><i class="fab fa-youtube fa-lg"></i></a>
+        <a href="#" class="text-white hover:text-accent transition-colors"><i class="fab fa-twitter fa-lg"></i></a>
+      </div>
+    </div>
+  </header>
+  
+
+  
+  <!-- FOOTER -->
+  <footer class="bg-primary relative overflow-hidden">
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="circle-bg absolute w-64 h-64 rounded-full bg-accent opacity-10 top-[-200px] right-[-200px]"></div>
+      <div class="circle-bg absolute w-32 h-32 rounded-full bg-accent opacity-10 bottom-40 left-1/4"></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 pt-16 pb-8 relative z-10">
+      <!-- Footer content -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div>
+          <img src="/api/placeholder/180/60" alt="LIS Logo" class="h-16 mb-4">
+          <p class="text-white opacity-70 text-sm">
+            Luke International School provides a world-class education in a vibrant and diverse community.
+          </p>
+        </div>
+        <div>
+          <h4 class="text-white font-bold mb-4 text-lg">Quick Links</h4>
+          <ul class="space-y-2">
+            <li><a href="about.html" class="text-white opacity-70 hover:text-accent transition-colors">About Us</a></li>
+            <li><a href="admissions.html" class="text-white opacity-70 hover:text-accent transition-colors">Admissions</a></li>
+            <li><a href="academics.html" class="text-white opacity-70 hover:text-accent transition-colors">Academics</a></li>
+            <li><a href="gallery.html" class="text-white opacity-70 hover:text-accent transition-colors">Events</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-bold mb-4 text-lg">Contact</h4>
+          <address class="not-italic text-white opacity-70 text-sm">
+            <p class="mb-2">123 Education Avenue</p>
+            <p class="mb-2">International District</p>
+            <p class="mb-2">info@lukeinternational.edu</p>
+            <p>+1 (555) 123-4567</p>
+          </address>
+        </div>
+        <div>
+          <h4 class="text-white font-bold mb-4 text-lg">Follow Us</h4>
+          <div class="flex space-x-4">
+            <a href="#" class="w-10 h-10 rounded-full bg-white bg-opacity-10 flex items-center justify-center text-white hover:bg-accent transition-colors">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-white bg-opacity-10 flex items-center justify-center text-white hover:bg-accent transition-colors">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-white bg-opacity-10 flex items-center justify-center text-white hover:bg-accent transition-colors">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-white bg-opacity-10 flex items-center justify-center text-white hover:bg-accent transition-colors">
+              <i class="fab fa-youtube"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <hr class="border-white border-opacity-10 mb-8">
+      
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <p class="text-white opacity-70 text-sm">&copy; 2025 Luke International School. All rights reserved.</p>
+        <div class="flex space-x-6 mt-4 md:mt-0">
+          <a href="privacy-policy.html" class="text-white opacity-70 text-sm hover:text-accent transition-colors">Privacy Policy</a>
+          <a href="terms.html" class="text-white opacity-70 text-sm hover:text-accent transition-colors">Terms of Use</a>
+          <a href="sitemap.html" class="text-white opacity-70 text-sm hover:text-accent transition-colors">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- SCRIPTS -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize AOS
+      AOS.init({ 
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true,
+        disable: 'mobile' // Disable on mobile for better performance
+      });
+      
+      // Loader hide
+      setTimeout(() => {
+        const loader = document.getElementById('page-loader');
+        loader.classList.add('hidden');
+        setTimeout(() => {
+          loader.style.display = 'none';
+        }, 800); // Match transition duration
+      }, 1500);
+      
+      // Header scroll effect
+      const header = document.getElementById('main-header');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) { 
+          header.classList.add('bg-primary', 'shadow-lg'); 
+        } else { 
+          header.classList.remove('shadow-lg');
+          if (window.scrollY === 0) {
+            header.classList.add('bg-opacity-95');
+          }
+        }
+      });
+      
+      // Mobile menu toggle
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileCloseBtn = document.getElementById('mobile-close-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const hamburger = mobileMenuBtn.querySelector('.hamburger');
+      
+      function toggleMobileMenu() {
+        mobileMenu.classList.toggle('translate-x-full');
+        hamburger.classList.toggle('open');
+        document.body.classList.toggle('overflow-hidden');
+      }
+      
+      mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+      mobileCloseBtn.addEventListener('click', toggleMobileMenu);
+      
+      // Mobile dropdowns
+      document.querySelectorAll('.mobile-dropdown-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const content = btn.nextElementSibling;
+          const icon = btn.querySelector('i');
+          
+          // Toggle dropdown visibility
+          if (content.classList.contains('hidden')) {
+            content.classList.remove('hidden');
+            content.style.maxHeight = content.scrollHeight + 'px';
+            icon.classList.add('rotate-180');
+          } else {
+            content.style.maxHeight = '0px';
+            icon.classList.remove('rotate-180');
+            setTimeout(() => {
+              content.classList.add('hidden');
+            }, 300); // Match transition duration
+          }
+        });
+      });
+      
+      // Improved Slide Carousel
+      const slides = document.querySelectorAll('.slide');
+      const slideDots = document.querySelectorAll('.slide-nav-dot');
+      let currentSlide = 0;
+      let slideInterval;
+      
+      function showSlide(index) {
+        // Hide all slides
+        slides.forEach(slide => slide.classList.remove('active'));
+        slideDots.forEach(dot => dot.classList.remove('active'));
+        
+        // Show selected slide
+        slides[index].classList.add('active');
+        slideDots[index].classList.add('active');
+        currentSlide = index;
+      }
+      
+      function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+      }
+      
+      function startSlideshow() {
+        slideInterval = setInterval(nextSlide, 6000);
+      }
+      
+      function pauseSlideshow() {
+        clearInterval(slideInterval);
+      }
+      
+      // Initialize slideshow
+      startSlideshow();
+      
+      // Add click events to navigation dots
+      slideDots.forEach((dot, i) => {
+        dot.addEventListener('click', () => {
+          pauseSlideshow();
+          showSlide(i);
+          startSlideshow();
+        });
+      });
+      
+      // Pause slideshow on hover
+      document.querySelector('.slide-carousel').addEventListener('mouseenter', pauseSlideshow);
+      document.querySelector('.slide-carousel').addEventListener('mouseleave', startSlideshow);
+      
+      // Video play button (replace the placeholder with the iframe YouTube)
+      const videoContainer = document.getElementById('video-container');
+      const playBtn = document.getElementById('play-btn');
+      
+      if (playBtn) {
+        playBtn.addEventListener('click', () => {
+          const videoPlaceholder = videoContainer.querySelector('.video-placeholder');
+          videoPlaceholder.style.display = 'none';
+          
+          const youtubeEmbed = videoContainer.querySelector('.youtube-embed');
+          youtubeEmbed.classList.remove('hidden');
+          youtubeEmbed.innerHTML = `
+            <iframe 
+              src="https://www.youtube.com/embed/ETjXmQK3jnE?rel=0&autoplay=1"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              class="w-full aspect-video">
+            </iframe>`;
+        });
+      }
+      
+      // Custom cursor (displayed on desktop only)
+      if (window.innerWidth > 768) {
+        const cursor = document.getElementById('custom-cursor');
+        const cursorDot = document.getElementById('cursor-dot');
+        
+        if (cursor && cursorDot) {
+          cursor.style.display = 'block';
+          cursorDot.style.display = 'block';
+          
+          document.addEventListener('mousemove', (e) => {
+            // Add a small delay for smooth following
+            requestAnimationFrame(() => {
+              cursor.style.left = e.clientX + 'px';
+              cursor.style.top = e.clientY + 'px';
+              cursorDot.style.left = e.clientX + 'px';
+              cursorDot.style.top = e.clientY + 'px';
+            });
+          });
+          
+          // Enhance cursor effect on interactive elements
+          const interactiveElements = document.querySelectorAll('a, button, input, textarea, .card-hover');
+          interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+              cursor.style.width = '50px';
+              cursor.style.height = '50px';
+              cursor.style.borderColor = 'rgba(245,130,32,0.8)';
+              cursorDot.style.width = '4px';
+              cursorDot.style.height = '4px';
+            });
+            
+            el.addEventListener('mouseleave', () => {
+              cursor.style.width = '40px';
+              cursor.style.height = '40px';
+              cursor.style.borderColor = 'rgba(245,130,32,0.5)';
+              cursorDot.style.width = '8px';
+              cursorDot.style.height = '8px';
+            });
+          });
+        }
+      }
+      
+      // Parallax effect with performance optimizations
+      const parallaxLayers = document.querySelectorAll('.parallax-layer');
+      
+      function updateParallax() {
+        if (parallaxLayers.length > 0) {
+          const scrollTop = window.scrollY;
+          
+          parallaxLayers.forEach(layer => {
+            const depth = parseFloat(layer.getAttribute('data-depth') || 0.2);
+            const movement = scrollTop * depth;
+            
+            // Use transform for better performance
+            layer.style.transform = `translate3d(0, ${movement}px, 0)`;
+          });
+        }
+      }
+      
+      // Use throttling to improve performance
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            updateParallax();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      });
+      
+      // Initialize parallax
+      updateParallax();
+      
+      // Smooth scrolling for internal links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+          
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            targetElement.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
