@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LIS AB - Home</title>
+  
+  <!-- Google Fonts (Montserrat) -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Feuille de style custom (sans @tailwind directives si CDN utilisé) -->
+  <link rel="stylesheet" href="assets/css/custom.css"/>
+  
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+    }
+    /* Animation fade-in */
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    /* Pour le crossfade du hero */
+    #hero-slide-1, #hero-slide-2 {
+      will-change: opacity;
+    }
+  </style>
+</head>
+<body class="bg-white text-white">
+
+  <!-- ========== HEADER / NAVBAR ========== -->
+  <header class="w-full bg-[#012E67] shadow-md fixed top-0 left-0 z-50 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-4">
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center">
+        <img src="assets/images/logo.png" alt="LIS AB Logo" class="h-10 w-auto">
+      </a>
+      
+      <!-- Navigation Desktop -->
+      <nav class="hidden md:flex space-x-6 text-sm font-medium">
+        
+        
+        <!-- About Dropdown -->
+        <div class="relative group">
+          <button class="inline-flex items-center hover:text-[#F58220] transition focus:outline-none">
+            <span>ABOUT</span>
+            <i class="ml-1 fas fa-chevron-down text-xs"></i>
+          </button>
+          <div class="absolute left-0 mt-2 w-48 bg-white rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+            <div class="py-1 border-l-4 border-[#F58220]">
+              <a href="about.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">About Us</a>
+              <a href="about-board.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Our Board</a>
+              <a href="about-staff.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Our Staff</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Admissions Dropdown -->
+        <div class="relative group">
+          <button class="inline-flex items-center hover:text-[#F58220] transition focus:outline-none">
+            <span>ADMISSIONS</span>
+            <i class="ml-1 fas fa-chevron-down text-xs"></i>
+          </button>
+          <div class="absolute left-0 mt-2 w-48 bg-white rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+            <div class="py-1 border-l-4 border-[#F58220]">
+              <a href="admissions.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Admissions Welcome</a>
+              <a href="event.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Event & Deadlines</a>
+              <a href="placement.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Placement Test</a>
+              <a href="application.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Application Fomr</a>
+            </div>
+          </div>
+        </div>
+        
+        
+         <!-- Academics Program (pas de dropdown) -->
+         <a href="academics.html" class="hover:text-[#F58220] transition">ACADEMICS</a>
+        
+        <!-- After-School Program (pas de dropdown) -->
+        <a href="afterschool.html" class="hover:text-[#F58220] transition">AFTER-SCHOOL PROGRAM</a>
+        
+        <!-- School Info Dropdown -->
+        <div class="relative group">
+          <button class="inline-flex items-center hover:text-[#F58220] transition focus:outline-none">
+            <span>SCHOOL INFO</span>
+            <i class="ml-1 fas fa-chevron-down text-xs"></i>
+          </button>
+          <div class="absolute left-0 mt-2 w-48 bg-white rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+            <div class="py-1 border-l-4 border-[#F58220]">
+              <a href="location.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Location</a>
+              <a href="newsletter.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Newsletter</a>
+              <a href="parent.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Parent Association</a>
+              <a href="calendar.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Calendar</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- School Events (au lieu de Pictures Gallery) -->
+        <a href="gallery.html" class="hover:text-[#F58220] transition">SCHOOL EVENTS</a>
+        
+        <!-- Switch de langue -->
+        <a href="fr/index.html" class="hover:text-[#F58220] transition">FR</a>
+      </nav>
+      
+      <!-- Bouton Menu Mobile -->
+      <button id="menu-btn" class="md:hidden focus:outline-none">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+    
+    <!-- Navigation Mobile -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white text-gray-800 px-4">
+      <ul class="space-y-2 py-2">
+        <li>
+          <a href="index.html" class="block py-2 hover:bg-gray-100 font-medium">HOME</a>
+        </li>
+        <!-- Dropdown About -->
+        <li class="relative">
+          <button class="mobile-dropdown-btn flex justify-between items-center w-full py-2 hover:bg-gray-100 focus:outline-none font-medium" data-target="mobile-dropdown-about">
+            ABOUT <i class="fas fa-chevron-down transition-transform duration-300"></i>
+          </button>
+          <ul id="mobile-dropdown-about" class="hidden pl-4 border-l-2 border-[#F58220] my-1">
+            <li><a href="about.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">About Us</a></li>
+            <li><a href="about-board.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Our Board</a></li>
+            <li><a href="about-staff.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Our Staff</a></li>
+          </ul>
+        </li>
+        <!-- Dropdown Admissions -->
+        <li class="relative">
+          <button class="mobile-dropdown-btn flex justify-between items-center w-full py-2 hover:bg-gray-100 focus:outline-none font-medium" data-target="mobile-dropdown-admissions">
+            ADMISSIONS <i class="fas fa-chevron-down transition-transform duration-300"></i>
+          </button>
+          <ul id="mobile-dropdown-admissions" class="hidden pl-4 border-l-2 border-[#F58220] my-1">
+            <li><a href="admissions.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Admissions Welcome</a></li>
+            <li><a href="event.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Event & Deadlines</a></li>
+            <li><a href="placement.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Placement Test</a></li>
+            <li><a href="application.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Application Form</a></li>
+          </ul>
+        </li>
+       <!-- After-School Program (sans dropdown) -->
+       <li>
+        <a href="academics.html" class="block py-2 hover:bg-gray-100 font-medium">ACADEMICS</a>
+      </li>
+        <!-- After-School Program (sans dropdown) -->
+        <li>
+          <a href="afterschool.html" class="block py-2 hover:bg-gray-100 font-medium">AFTER-SCHOOL PROGRAM</a>
+        </li>
+        <!-- Dropdown School Info -->
+        <li class="relative">
+          <button class="mobile-dropdown-btn flex justify-between items-center w-full py-2 hover:bg-gray-100 focus:outline-none font-medium" data-target="mobile-dropdown-schoolinfo">
+            SCHOOL INFO <i class="fas fa-chevron-down transition-transform duration-300"></i>
+          </button>
+          <ul id="mobile-dropdown-schoolinfo" class="hidden pl-4 border-l-2 border-[#F58220] my-1">
+            <li><a href="location.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Location</a></li>
+            <li><a href="newsletter.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Newsletter</a></li>
+            <li><a href="parent.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Parent Association</a></li>
+            <li><a href="calendar.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Calendar</a></li>
+          </ul>
+        </li>
+        <!-- School Events -->
+        <li>
+          <a href="gallery.html" class="block py-2 hover:bg-gray-100 font-medium">SCHOOL EVENTS</a>
+        </li>
+        <!-- Switch de langue -->
+        <li>
+          <a href="fr/index.html" class="block py-2 hover:bg-gray-100 font-medium">FR</a>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+
+<!-- ========== MAIN CONTENT ========== -->
+<main class="pt-20">
+  <!-- HERO SECTION (Slim Hero) -->
+  <section class="relative h-[40vh] flex items-center justify-center overflow-hidden">
+    <!-- Vous pouvez changer l'image de fond ici si nécessaire -->
+    <img src="assets/images/1-Fist-picture-Ordinary-Day.jpg" alt="Hero Background" class="absolute inset-0 w-full h-full object-cover">
+    <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+    <div class="relative text-center px-4 fade-in">
+      <h1 class="text-3xl md:text-4xl font-bold text-white">About Our Board</h1>
+      <p class="mt-2 text-white text-sm md:text-base">Meet the visionary founders who created Luke International School</p>
+    </div>
+  </section>
+  
+  <!-- BOARD MEMBERS INTRODUCTION -->
+  <section class="bg-white py-8 border-b border-gray-200">
+    <div class="max-w-5xl mx-auto px-4 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-[#012E67]">Our Board</h2>
+      <p class="mt-3 text-gray-600 text-lg">The founding members behind our innovative approach to education</p>
+    </div>
+  </section>
+  
+  <!-- BOARD MEMBERS GRID -->
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Gloria Freeman-Fromayan -->
+        <div class="bg-gray-50 rounded-lg shadow-lg p-6 hover:shadow-2xl transition">
+          <img src="assets/images/Gloria.jpg" alt="Gloria Freeman-Fromayan" class="w-full h-64 object-cover rounded-md">
+          <div class="mt-4">
+            <h3 class="text-2xl font-bold text-[#012E67]">Gloria Freeman-Fromayan</h3>
+            <p class="text-sm text-gray-600 uppercase">Directrice / Founding Member / Principal</p>
+            <p class="text-xs text-gray-500 mt-1">No Child is left behind • principal@lisabj.org</p>
+            <p class="mt-3 text-gray-700 text-sm">
+              Gloria Freeman-Fromayan is a professional administrator and educator with over thirty years of experience in American style education. With certifications in International School Leadership, a Master's in Education and a Bachelor's in Elementary Education, she has dedicated her career to developing young minds and ensuring smooth school administration.
+            </p>
+          </div>
+        </div>
+        
+        <!-- Rosalind Brown -->
+        <div class="bg-gray-50 rounded-lg shadow-lg p-6 hover:shadow-2xl transition">
+          <img src="assets/images/Rosalind.jpg" alt="Rosalind Brown" class="w-full h-64 object-cover rounded-md">
+          <div class="mt-4">
+            <h3 class="text-2xl font-bold text-[#012E67]">Rosalind Brown</h3>
+            <p class="text-sm text-gray-600 uppercase">Founding Member</p>
+            <p class="mt-3 text-gray-700 text-sm">
+              Rosalind Brown, a founding member, holds a Master of Arts in International Education and a Bachelor's in Economics and Finance. Her extensive international experience, including work with the United Nations and accreditation visits in Africa, reflects her commitment to global unity and educational excellence.
+            </p>
+          </div>
+        </div>
+        
+        <!-- Nathalie Akon Gabala -->
+        <div class="bg-gray-50 rounded-lg shadow-lg p-6 hover:shadow-2xl transition">
+          <img src="assets/images/Nathalie.jpg" alt="Nathalie Akon Gabala" class="w-full h-64 object-cover rounded-md">
+          <div class="mt-4">
+            <h3 class="text-2xl font-bold text-[#012E67]">Nathalie Akon Gabala</h3>
+            <p class="text-sm text-gray-600 uppercase">Founding Member</p>
+            <p class="mt-3 text-gray-700 text-sm">
+              Nathalie Akon Gabala is a Partner in charge of African Investments with a decade of expertise at Standard Chartered Bank. With advanced degrees in management, finance and accounting, she serves on various financial boards and co-founded an NGO dedicated to supporting sick children. Her business acumen enriches the school's foundation.
+            </p>
+          </div>
+        </div>
+        
+        <!-- Martha Rahman -->
+        <div class="bg-gray-50 rounded-lg shadow-lg p-6 hover:shadow-2xl transition">
+          <img src="assets/images/Martha.jpg" alt="Martha Rahman" class="w-full h-64 object-cover rounded-md">
+          <div class="mt-4">
+            <h3 class="text-2xl font-bold text-[#012E67]">Martha Rahman</h3>
+            <p class="text-sm text-gray-600 uppercase">Founding Member</p>
+            <p class="mt-3 text-gray-700 text-sm">
+              Martha Rahman, with a Bachelor's in Biblical Studies and a Master’s in Christian Education, has dedicated 18 years to teaching. As founder of two elementary schools and a certified educational leader, she champions early child reading and strategic leadership in education.
+            </p>
+          </div>
+        </div>
+        
+        <!-- Abeni Jackson-Johnson -->
+        <div class="bg-gray-50 rounded-lg shadow-lg p-6 hover:shadow-2xl transition">
+          <img src="assets/images/Abeni.jpg" alt="Abeni Jackson-Johnson" class="w-full h-64 object-cover rounded-md">
+          <div class="mt-4">
+            <h3 class="text-2xl font-bold text-[#012E67]">Abeni Jackson-Johnson</h3>
+            <p class="text-sm text-gray-600 uppercase">Founding Member</p>
+            <p class="mt-3 text-gray-700 text-sm">
+              Abeni Jackson-Johnson brings diverse cultural insights with her background in US education and special education. With experience from Flint to Arlington and a portfolio that includes international teaching and outreach, she plays a key role in shaping a supportive, innovative educational environment.
+            </p>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+  
+  <!-- (Optionnel) SECTION CONTACT SIMPLE ou autre information si besoin -->
+  
+</main>
+
+
+   <!-- ========== FOOTER ========== -->
+   <footer class="bg-[#012E67] text-white mt-12">
+    <div class="max-w-7xl mx-auto px-4 py-8 flex flex-col sm:flex-row justify-between items-center">
+      <!-- Logo & Copyright -->
+      <div class="mb-4 sm:mb-0 text-center">
+        <img src="assets/images/logo.png" alt="LIS AB Footer Logo" class="h-8 w-auto mb-2">
+        <p class="text-sm">&copy; 2025 Luke International School. All rights reserved.</p>
+      </div>
+      <!-- Icônes sociales -->
+      <div class="flex space-x-4">
+        <a href="#" aria-label="Facebook" class="hover:text-[#F58220] transition">
+          <i class="fab fa-facebook-f fa-lg"></i>
+        </a>
+        <a href="#" aria-label="YouTube" class="hover:text-[#F58220] transition">
+          <i class="fab fa-youtube fa-lg"></i>
+        </a>
+        <a href="#" aria-label="Twitter" class="hover:text-[#F58220] transition">
+          <i class="fab fa-twitter fa-lg"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== SCRIPTS ========== -->
+  <script>
+    // Mobile menu toggle
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuBtn = document.getElementById('menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        // Optionnel : gestion du scroll du body
+        if (!mobileMenu.classList.contains('hidden')) {
+          document.body.style.overflow = 'hidden';
+        } else {
+          document.body.style.overflow = '';
+        }
+      });
+      
+      // Gestion des dropdowns mobiles
+      const dropdownBtns = document.querySelectorAll('.mobile-dropdown-btn');
+      dropdownBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const targetId = btn.getAttribute('data-target');
+          const targetDropdown = document.getElementById(targetId);
+          const arrow = btn.querySelector('.fa-chevron-down');
+          if (targetDropdown) {
+            targetDropdown.classList.toggle('hidden');
+            if (targetDropdown.classList.contains('hidden')) {
+              arrow.classList.remove('transform', 'rotate-180');
+            } else {
+              arrow.classList.add('transform', 'rotate-180');
+            }
+          }
+        });
+      });
+    });
+    
+    // Slideshow avec crossfade pour le hero
+    const heroSlides = [
+      "assets/images/5-1.jpg",
+      "assets/images/6-1.jpg",
+      "assets/images/14-1.jpg",
+      "assets/images/12-1.jpg"
+    ];
+    const preloadedImages = [];
+    heroSlides.forEach(src => {
+      const img = new Image();
+      img.src = src;
+      preloadedImages.push(img);
+    });
+    
+    let currentSlide = 0;
+    const slide1 = document.getElementById("hero-slide-1");
+    const slide2 = document.getElementById("hero-slide-2");
+    
+    // Fallback de couleur pour éviter flash
+    slide1.style.backgroundColor = "#000";
+    slide2.style.backgroundColor = "#000";
+    
+    slide1.style.backgroundImage = `url(${heroSlides[currentSlide]})`;
+    
+    function changeSlide() {
+      const nextSlideIndex = (currentSlide + 1) % heroSlides.length;
+      const nextImg = preloadedImages[nextSlideIndex];
+      if (!nextImg.complete) {
+        nextImg.onload = doTransition;
+      } else {
+        doTransition();
+      }
+      
+      function doTransition() {
+        slide2.style.backgroundImage = `url(${heroSlides[nextSlideIndex]})`;
+        slide1.classList.remove("opacity-100");
+        slide1.classList.add("opacity-0");
+        slide2.classList.remove("opacity-0");
+        slide2.classList.add("opacity-100");
+        setTimeout(() => {
+          slide1.style.backgroundImage = `url(${heroSlides[nextSlideIndex]})`;
+          slide1.classList.remove("opacity-0");
+          slide1.classList.add("opacity-100");
+          slide2.classList.remove("opacity-100");
+          slide2.classList.add("opacity-0");
+          currentSlide = nextSlideIndex;
+        }, 1000);
+      }
+    }
+    setInterval(changeSlide, 5000);
+  </script>
+</body>
+</html>

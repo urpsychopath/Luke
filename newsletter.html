@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LIS AB - Home</title>
+  
+  <!-- Google Fonts (Montserrat) -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Feuille de style custom (sans @tailwind directives si CDN utilisé) -->
+  <link rel="stylesheet" href="assets/css/custom.css"/>
+  
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+    }
+    /* Animation fade-in */
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    /* Pour le crossfade du hero */
+    #hero-slide-1, #hero-slide-2 {
+      will-change: opacity;
+    }
+  </style>
+</head>
+<body class="bg-white text-white">
+
+  <!-- ========== HEADER / NAVBAR ========== -->
+  <header class="w-full bg-[#012E67] shadow-md fixed top-0 left-0 z-50 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-4">
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center">
+        <img src="assets/images/logo.png" alt="LIS AB Logo" class="h-10 w-auto">
+      </a>
+      
+      <!-- Navigation Desktop -->
+      <nav class="hidden md:flex space-x-6 text-sm font-medium">
+        
+        
+        <!-- About Dropdown -->
+        <div class="relative group">
+          <button class="inline-flex items-center hover:text-[#F58220] transition focus:outline-none">
+            <span>ABOUT</span>
+            <i class="ml-1 fas fa-chevron-down text-xs"></i>
+          </button>
+          <div class="absolute left-0 mt-2 w-48 bg-white rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+            <div class="py-1 border-l-4 border-[#F58220]">
+              <a href="about.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">About Us</a>
+              <a href="about-board.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Our Board</a>
+              <a href="about-staff.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Our Staff</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Admissions Dropdown -->
+        <div class="relative group">
+          <button class="inline-flex items-center hover:text-[#F58220] transition focus:outline-none">
+            <span>ADMISSIONS</span>
+            <i class="ml-1 fas fa-chevron-down text-xs"></i>
+          </button>
+          <div class="absolute left-0 mt-2 w-48 bg-white rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+            <div class="py-1 border-l-4 border-[#F58220]">
+              <a href="admissions.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Admissions Welcome</a>
+              <a href="event.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Event & Deadlines</a>
+              <a href="placement.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Placement Test</a>
+              <a href="application.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Application Fomr</a>
+            </div>
+          </div>
+        </div>
+        
+        
+         <!-- Academics Program (pas de dropdown) -->
+         <a href="academics.html" class="hover:text-[#F58220] transition">ACADEMICS</a>
+        
+        <!-- After-School Program (pas de dropdown) -->
+        <a href="afterschool.html" class="hover:text-[#F58220] transition">AFTER-SCHOOL PROGRAM</a>
+        
+        <!-- School Info Dropdown -->
+        <div class="relative group">
+          <button class="inline-flex items-center hover:text-[#F58220] transition focus:outline-none">
+            <span>SCHOOL INFO</span>
+            <i class="ml-1 fas fa-chevron-down text-xs"></i>
+          </button>
+          <div class="absolute left-0 mt-2 w-48 bg-white rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+            <div class="py-1 border-l-4 border-[#F58220]">
+              <a href="location.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Location</a>
+              <a href="newsletter.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Newsletter</a>
+              <a href="parent.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Parent Association</a>
+              <a href="calendar.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Calendar</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- School Events (au lieu de Pictures Gallery) -->
+        <a href="gallery.html" class="hover:text-[#F58220] transition">SCHOOL EVENTS</a>
+        
+        <!-- Switch de langue -->
+        <a href="fr/index.html" class="hover:text-[#F58220] transition">FR</a>
+      </nav>
+      
+      <!-- Bouton Menu Mobile -->
+      <button id="menu-btn" class="md:hidden focus:outline-none">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+    
+    <!-- Navigation Mobile -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white text-gray-800 px-4">
+      <ul class="space-y-2 py-2">
+        <li>
+          <a href="index.html" class="block py-2 hover:bg-gray-100 font-medium">HOME</a>
+        </li>
+        <!-- Dropdown About -->
+        <li class="relative">
+          <button class="mobile-dropdown-btn flex justify-between items-center w-full py-2 hover:bg-gray-100 focus:outline-none font-medium" data-target="mobile-dropdown-about">
+            ABOUT <i class="fas fa-chevron-down transition-transform duration-300"></i>
+          </button>
+          <ul id="mobile-dropdown-about" class="hidden pl-4 border-l-2 border-[#F58220] my-1">
+            <li><a href="about.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">About Us</a></li>
+            <li><a href="about-board.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Our Board</a></li>
+            <li><a href="about-staff.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Our Staff</a></li>
+          </ul>
+        </li>
+        <!-- Dropdown Admissions -->
+        <li class="relative">
+          <button class="mobile-dropdown-btn flex justify-between items-center w-full py-2 hover:bg-gray-100 focus:outline-none font-medium" data-target="mobile-dropdown-admissions">
+            ADMISSIONS <i class="fas fa-chevron-down transition-transform duration-300"></i>
+          </button>
+          <ul id="mobile-dropdown-admissions" class="hidden pl-4 border-l-2 border-[#F58220] my-1">
+            <li><a href="admissions.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Admissions Welcome</a></li>
+            <li><a href="event.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Event & Deadlines</a></li>
+            <li><a href="placement.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Placement Test</a></li>
+            <li><a href="application.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Application Form</a></li>
+          </ul>
+        </li>
+       <!-- After-School Program (sans dropdown) -->
+       <li>
+        <a href="academics.html" class="block py-2 hover:bg-gray-100 font-medium">ACADEMICS</a>
+      </li>
+        <!-- After-School Program (sans dropdown) -->
+        <li>
+          <a href="afterschool.html" class="block py-2 hover:bg-gray-100 font-medium">AFTER-SCHOOL PROGRAM</a>
+        </li>
+        <!-- Dropdown School Info -->
+        <li class="relative">
+          <button class="mobile-dropdown-btn flex justify-between items-center w-full py-2 hover:bg-gray-100 focus:outline-none font-medium" data-target="mobile-dropdown-schoolinfo">
+            SCHOOL INFO <i class="fas fa-chevron-down transition-transform duration-300"></i>
+          </button>
+          <ul id="mobile-dropdown-schoolinfo" class="hidden pl-4 border-l-2 border-[#F58220] my-1">
+            <li><a href="location.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Location</a></li>
+            <li><a href="newsletter.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Newsletter</a></li>
+            <li><a href="parent.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Parent Association</a></li>
+            <li><a href="calendar.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Calendar</a></li>
+          </ul>
+        </li>
+        <!-- School Events -->
+        <li>
+          <a href="gallery.html" class="block py-2 hover:bg-gray-100 font-medium">SCHOOL EVENTS</a>
+        </li>
+        <!-- Switch de langue -->
+        <li>
+          <a href="fr/index.html" class="block py-2 hover:bg-gray-100 font-medium">FR</a>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+
+
+  <main class="pt-20 flex-grow">
+    <!-- HEADLINE SECTION -->
+    <section class="bg-white py-8 border-b border-gray-200">
+      <div class="max-w-5xl mx-auto px-4 text-center">
+        <h1 class="text-3xl md:text-4xl font-bold text-[#012E67]">School Newsletters</h1>
+        <p class="mt-3 text-lg text-gray-600">
+          Stay informed with our monthly school newsletters and announcements
+        </p>
+      </div>
+    </section>
+    
+    <!-- NEWSLETTER GALLERY -->
+    <section class="max-w-6xl mx-auto px-4 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- April Newsletter -->
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden transform transition-all hover:shadow-xl">
+          <div class="relative h-64 bg-[#012E67] overflow-hidden">
+            <div class="absolute inset-0 flex items-center justify-center p-6">
+              <div class="text-center">
+                <h3 class="text-2xl font-bold text-white">April 2025</h3>
+                <p class="text-gray-200 mt-2">Spring Newsletter</p>
+                <div class="mt-4">
+                  <i class="fas fa-file-pdf text-[#F58220] text-5xl"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-[#012E67]">April Newsletter</h3>
+            <p class="text-gray-600 mt-2">Latest updates, events, and achievements from our school community.</p>
+            <div class="mt-4">
+              <a href="assets/pdf/Newsletter-LIS-April-1.pdf" class="inline-flex items-center gap-2 text-[#F58220] font-medium hover:text-[#012E67] transition">
+                <span>Download PDF</span>
+                <i class="fas fa-download"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- March Newsletter -->
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden transform transition-all hover:shadow-xl">
+          <div class="relative h-64 bg-[#012E67] overflow-hidden">
+            <div class="absolute inset-0 flex items-center justify-center p-6">
+              <div class="text-center">
+                <h3 class="text-2xl font-bold text-white">March 2025</h3>
+                <p class="text-gray-200 mt-2">Monthly Newsletter</p>
+                <div class="mt-4">
+                  <i class="fas fa-file-pdf text-[#F58220] text-5xl"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-[#012E67]">March Newsletter</h3>
+            <p class="text-gray-600 mt-2">Important announcements and upcoming events for the month of March.</p>
+            <div class="mt-4">
+              <a href="assets/pdf/Newsletter-LIS-March-1.pdf" class="inline-flex items-center gap-2 text-[#F58220] font-medium hover:text-[#012E67] transition">
+                <span>Download PDF</span>
+                <i class="fas fa-download"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- February Newsletter -->
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden transform transition-all hover:shadow-xl">
+          <div class="relative h-64 bg-[#012E67] overflow-hidden">
+            <div class="absolute inset-0 flex items-center justify-center p-6">
+              <div class="text-center">
+                <h3 class="text-2xl font-bold text-white">February 2025</h3>
+                <p class="text-gray-200 mt-2">Monthly Newsletter</p>
+                <div class="mt-4">
+                  <i class="fas fa-file-pdf text-[#F58220] text-5xl"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-[#012E67]">February Newsletter</h3>
+            <p class="text-gray-600 mt-2">School updates and achievements from our February activities.</p>
+            <div class="mt-4">
+              <a href="assets/pdf/Newsletter-LIS-Feb-1.pdf" class="inline-flex items-center gap-2 text-[#F58220] font-medium hover:text-[#012E67] transition">
+                <span>Download PDF</span>
+                <i class="fas fa-download"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- December Newsletter -->
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden transform transition-all hover:shadow-xl">
+          <div class="relative h-64 bg-[#012E67] overflow-hidden">
+            <div class="absolute inset-0 flex items-center justify-center p-6">
+              <div class="text-center">
+                <h3 class="text-2xl font-bold text-white">December 2024</h3>
+                <p class="text-gray-200 mt-2">Holiday Newsletter</p>
+                <div class="mt-4">
+                  <i class="fas fa-file-pdf text-[#F58220] text-5xl"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-[#012E67]">December Newsletter</h3>
+            <p class="text-gray-600 mt-2">End-of-year celebrations and holiday information for our school community.</p>
+            <div class="mt-4">
+              <a href="assets/pdf/Newsletter-LIS-Dec-1.pdf" class="inline-flex items-center gap-2 text-[#F58220] font-medium hover:text-[#012E67] transition">
+                <span>Download PDF</span>
+                <i class="fas fa-download"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+    
+    <!-- SUBSCRIBE SECTION -->
+    <section class="bg-gray-100 py-12">
+      <div class="max-w-5xl mx-auto px-4 text-center">
+        <h2 class="text-2xl md:text-3xl font-bold text-[#012E67]">Stay Updated</h2>
+        <p class="mt-3 text-gray-600 max-w-3xl mx-auto">
+          Subscribe to our newsletter to receive the latest school updates, events, and announcements directly in your inbox.
+        </p>
+        
+        <form action="#" method="POST" class="mt-8 max-w-md mx-auto flex flex-col sm:flex-row gap-4">
+          <input 
+            type="email" 
+            placeholder="Your email address" 
+            class="flex-grow px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#F58220]"
+            required
+          >
+          <button 
+            type="submit" 
+            class="bg-[#F58220] hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-md transition-colors"
+          >
+            Subscribe
+          </button>
+        </form>
+        
+        <p class="text-gray-500 text-sm mt-4">
+          You can unsubscribe at any time. We respect your privacy.
+        </p>
+      </div>
+    </section>
+    
+    <!-- ARCHIVE SECTION -->
+    <section class="max-w-6xl mx-auto px-4 py-12">
+      <h2 class="text-2xl font-bold text-[#012E67] mb-6">Newsletter Archive</h2>
+      
+      <div class="border-t border-gray-200">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Month
+              </th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Year
+              </th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm font-medium text-gray-900">April</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-500">2025</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <a href="assets/pdf/Newsletter-LIS-April-1.pdf" class="text-[#F58220] hover:text-[#012E67] font-medium">Download</a>
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm font-medium text-gray-900">March</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-500">2025</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <a href="assets/pdf/Newsletter-LIS-March-1.pdf" class="text-[#F58220] hover:text-[#012E67] font-medium">Download</a>
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm font-medium text-gray-900">February</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-500">2025</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <a href="assets/pdf/Newsletter-LIS-Feb-1.pdf" class="text-[#F58220] hover:text-[#012E67] font-medium">Download</a>
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm font-medium text-gray-900">December</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-500">2024</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <a href="assets/pdf/Newsletter-LIS-Dec-1.pdf" class="text-[#F58220] hover:text-[#012E67] font-medium">Download</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+   <!-- ========== FOOTER ========== -->
+   <footer class="bg-[#012E67] text-white mt-12">
+    <div class="max-w-7xl mx-auto px-4 py-8 flex flex-col sm:flex-row justify-between items-center">
+      <!-- Logo & Copyright -->
+      <div class="mb-4 sm:mb-0 text-center">
+        <img src="assets/images/logo.png" alt="LIS AB Footer Logo" class="h-8 w-auto mb-2">
+        <p class="text-sm">&copy; 2025 Luke International School. All rights reserved.</p>
+      </div>
+      <!-- Icônes sociales -->
+      <div class="flex space-x-4">
+        <a href="https://web.facebook.com/LukeInternationalSchool/" aria-label="Facebook" class="hover:text-[#F58220] transition">
+          <i class="fab fa-facebook-f fa-lg"></i>
+        </a>
+        <a href="https://www.youtube.com/channel/UCjFGZja9JsrNnouzHc8Ok-g" aria-label="YouTube" class="hover:text-[#F58220] transition">
+          <i class="fab fa-youtube fa-lg"></i>
+        </a>
+        
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== SCRIPTS ========== -->
+  <script>
+    // Mobile menu toggle
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuBtn = document.getElementById('menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        // Optionnel : gestion du scroll du body
+        if (!mobileMenu.classList.contains('hidden')) {
+          document.body.style.overflow = 'hidden';
+        } else {
+          document.body.style.overflow = '';
+        }
+      });
+      
+      // Gestion des dropdowns mobiles
+      const dropdownBtns = document.querySelectorAll('.mobile-dropdown-btn');
+      dropdownBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const targetId = btn.getAttribute('data-target');
+          const targetDropdown = document.getElementById(targetId);
+          const arrow = btn.querySelector('.fa-chevron-down');
+          if (targetDropdown) {
+            targetDropdown.classList.toggle('hidden');
+            if (targetDropdown.classList.contains('hidden')) {
+              arrow.classList.remove('transform', 'rotate-180');
+            } else {
+              arrow.classList.add('transform', 'rotate-180');
+            }
+          }
+        });
+      });
+    });
+    
+    // Slideshow avec crossfade pour le hero
+    const heroSlides = [
+      "assets/images/5-1.jpg",
+      "assets/images/6-1.jpg",
+      "assets/images/14-1.jpg",
+      "assets/images/12-1.jpg"
+    ];
+    const preloadedImages = [];
+    heroSlides.forEach(src => {
+      const img = new Image();
+      img.src = src;
+      preloadedImages.push(img);
+    });
+    
+    let currentSlide = 0;
+    const slide1 = document.getElementById("hero-slide-1");
+    const slide2 = document.getElementById("hero-slide-2");
+    
+    // Fallback de couleur pour éviter flash
+    slide1.style.backgroundColor = "#000";
+    slide2.style.backgroundColor = "#000";
+    
+    slide1.style.backgroundImage = `url(${heroSlides[currentSlide]})`;
+    
+    function changeSlide() {
+      const nextSlideIndex = (currentSlide + 1) % heroSlides.length;
+      const nextImg = preloadedImages[nextSlideIndex];
+      if (!nextImg.complete) {
+        nextImg.onload = doTransition;
+      } else {
+        doTransition();
+      }
+      
+      function doTransition() {
+        slide2.style.backgroundImage = `url(${heroSlides[nextSlideIndex]})`;
+        slide1.classList.remove("opacity-100");
+        slide1.classList.add("opacity-0");
+        slide2.classList.remove("opacity-0");
+        slide2.classList.add("opacity-100");
+        setTimeout(() => {
+          slide1.style.backgroundImage = `url(${heroSlides[nextSlideIndex]})`;
+          slide1.classList.remove("opacity-0");
+          slide1.classList.add("opacity-100");
+          slide2.classList.remove("opacity-100");
+          slide2.classList.add("opacity-0");
+          currentSlide = nextSlideIndex;
+        }, 1000);
+      }
+    }
+    setInterval(changeSlide, 5000);
+  </script>
+</body>
+</html>

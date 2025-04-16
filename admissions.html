@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LIS AB - Home</title>
+  
+  <!-- Google Fonts (Montserrat) -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Feuille de style custom (sans @tailwind directives si CDN utilisé) -->
+  <link rel="stylesheet" href="assets/css/custom.css"/>
+  
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+    }
+    /* Animation fade-in */
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    /* Pour le crossfade du hero */
+    #hero-slide-1, #hero-slide-2 {
+      will-change: opacity;
+    }
+  </style>
+</head>
+<body class="bg-white text-white">
+
+  <!-- ========== HEADER / NAVBAR ========== -->
+  <header class="w-full bg-[#012E67] shadow-md fixed top-0 left-0 z-50 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-4">
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center">
+        <img src="assets/images/logo.png" alt="LIS AB Logo" class="h-10 w-auto">
+      </a>
+      
+      <!-- Navigation Desktop -->
+      <nav class="hidden md:flex space-x-6 text-sm font-medium">
+        <a href="index.html" class="hover:text-[#F58220] transition">HOME</a>
+        
+        <!-- About Dropdown -->
+        <div class="relative group">
+          <button class="inline-flex items-center hover:text-[#F58220] transition focus:outline-none">
+            <span>ABOUT</span>
+            <i class="ml-1 fas fa-chevron-down text-xs"></i>
+          </button>
+          <div class="absolute left-0 mt-2 w-48 bg-white rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+            <div class="py-1 border-l-4 border-[#F58220]">
+              <a href="about.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">About Us</a>
+              <a href="about-board.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Our Board</a>
+              <a href="about-staff.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Our Staff</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Admissions Dropdown -->
+        <div class="relative group">
+          <button class="inline-flex items-center hover:text-[#F58220] transition focus:outline-none">
+            <span>ADMISSIONS</span>
+            <i class="ml-1 fas fa-chevron-down text-xs"></i>
+          </button>
+          <div class="absolute left-0 mt-2 w-48 bg-white rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+            <div class="py-1 border-l-4 border-[#F58220]">
+              <a href="admissions.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Admissions Welcome</a>
+              <a href="event.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Event & Deadlines</a>
+              <a href="placement.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Placement Test</a>
+              <a href="application.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Application Fomr</a>
+            </div>
+          </div>
+        </div>
+        
+        
+         <!-- Academics Program (pas de dropdown) -->
+         <a href="academics.html" class="hover:text-[#F58220] transition">ACADEMICS</a>
+        
+        <!-- After-School Program (pas de dropdown) -->
+        <a href="afterschool.html" class="hover:text-[#F58220] transition">AFTER-SCHOOL PROGRAM</a>
+        
+        <!-- School Info Dropdown -->
+        <div class="relative group">
+          <button class="inline-flex items-center hover:text-[#F58220] transition focus:outline-none">
+            <span>SCHOOL INFO</span>
+            <i class="ml-1 fas fa-chevron-down text-xs"></i>
+          </button>
+          <div class="absolute left-0 mt-2 w-48 bg-white rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+            <div class="py-1 border-l-4 border-[#F58220]">
+              <a href="location.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Location</a>
+              <a href="newsletter.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Newsletter</a>
+              <a href="parent.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Parent Association</a>
+              <a href="calendar.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Calendar</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- School Events (au lieu de Pictures Gallery) -->
+        <a href="gallery.html" class="hover:text-[#F58220] transition">SCHOOL EVENTS</a>
+        
+        <!-- Switch de langue -->
+        <a href="fr/index.html" class="hover:text-[#F58220] transition">FR</a>
+      </nav>
+      
+      <!-- Bouton Menu Mobile -->
+      <button id="menu-btn" class="md:hidden focus:outline-none">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+    
+    <!-- Navigation Mobile -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white text-gray-800 px-4">
+      <ul class="space-y-2 py-2">
+        <li>
+          <a href="index.html" class="block py-2 hover:bg-gray-100 font-medium">HOME</a>
+        </li>
+        <!-- Dropdown About -->
+        <li class="relative">
+          <button class="mobile-dropdown-btn flex justify-between items-center w-full py-2 hover:bg-gray-100 focus:outline-none font-medium" data-target="mobile-dropdown-about">
+            ABOUT <i class="fas fa-chevron-down transition-transform duration-300"></i>
+          </button>
+          <ul id="mobile-dropdown-about" class="hidden pl-4 border-l-2 border-[#F58220] my-1">
+            <li><a href="about.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">About Us</a></li>
+            <li><a href="about-board.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Our Board</a></li>
+            <li><a href="about-staff.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Our Staff</a></li>
+          </ul>
+        </li>
+        <!-- Dropdown Admissions -->
+        <li class="relative">
+          <button class="mobile-dropdown-btn flex justify-between items-center w-full py-2 hover:bg-gray-100 focus:outline-none font-medium" data-target="mobile-dropdown-admissions">
+            ADMISSIONS <i class="fas fa-chevron-down transition-transform duration-300"></i>
+          </button>
+          <ul id="mobile-dropdown-admissions" class="hidden pl-4 border-l-2 border-[#F58220] my-1">
+            <li><a href="admissions.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Admissions Welcome</a></li>
+            <li><a href="event.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Event & Deadlines</a></li>
+            <li><a href="placement.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Placement Test</a></li>
+            <li><a href="application.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Application Form</a></li>
+          </ul>
+        </li>
+       <!-- After-School Program (sans dropdown) -->
+       <li>
+        <a href="academics.html" class="block py-2 hover:bg-gray-100 font-medium">ACADEMICS</a>
+      </li>
+        <!-- After-School Program (sans dropdown) -->
+        <li>
+          <a href="afterschool.html" class="block py-2 hover:bg-gray-100 font-medium">AFTER-SCHOOL PROGRAM</a>
+        </li>
+        <!-- Dropdown School Info -->
+        <li class="relative">
+          <button class="mobile-dropdown-btn flex justify-between items-center w-full py-2 hover:bg-gray-100 focus:outline-none font-medium" data-target="mobile-dropdown-schoolinfo">
+            SCHOOL INFO <i class="fas fa-chevron-down transition-transform duration-300"></i>
+          </button>
+          <ul id="mobile-dropdown-schoolinfo" class="hidden pl-4 border-l-2 border-[#F58220] my-1">
+            <li><a href="location.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Location</a></li>
+            <li><a href="newsletter.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Newsletter</a></li>
+            <li><a href="parent.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Parent Association</a></li>
+            <li><a href="calendar.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Calendar</a></li>
+          </ul>
+        </li>
+        <!-- School Events -->
+        <li>
+          <a href="gallery.html" class="block py-2 hover:bg-gray-100 font-medium">SCHOOL EVENTS</a>
+        </li>
+        <!-- Switch de langue -->
+        <li>
+          <a href="fr/index.html" class="block py-2 hover:bg-gray-100 font-medium">FR</a>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main class="pt-20">
+    
+    <!-- HERO SECTION (25vh) -->
+    <section class="relative h-[25vh] flex items-center justify-center overflow-hidden">
+      <img src="assets/images/1-Fist-picture-Ordinary-Day.jpg" alt="Luke International School Admissions" 
+           class="absolute inset-0 w-full h-full object-cover"/>
+      <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+    </section>
+    
+    <!-- HEADLINE -->
+    <section class="bg-white py-8 border-b border-gray-200">
+      <div class="max-w-5xl mx-auto px-4 text-center">
+        <h1 class="text-3xl md:text-4xl font-bold text-[#012E67]">Admissions Welcome</h1>
+        <p class="mt-3 text-gray-600 text-lg">
+          Begin your journey with Luke International School
+        </p>
+      </div>
+    </section>
+    
+    <!-- WELCOME MESSAGE SECTION -->
+    <section class="bg-white py-12">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="flex flex-col md:flex-row items-start gap-12">
+          <!-- Text Block -->
+          <div class="md:w-3/5">
+            <div class="bg-[#F58220] text-white inline-block px-4 py-2 rounded mb-6">
+              <h2 class="text-2xl font-bold">DEAR PROSPECTIVE FAMILIES</h2>
+            </div>
+            <div class="space-y-4 text-gray-700 leading-relaxed">
+              <p>
+                On behalf of the Luke International community (LIS), welcome! I am delighted that you have chosen to explore the possibility of a LIS education for your child. LIS offers a progressive, innovative education grounded in deep tradition, preparing children with the necessary skills and attributes to succeed in today’s globally diverse world.
+              </p>
+              <p>
+                The educational program chosen by LIS is based on a strong American curriculum and provides intense French and English classes. Children will be exposed to cutting-edge technology and excellent instruction.
+              </p>
+              <p>
+                Our dedicated faculty helps each child discover their passions, nourishing every student’s mind and character while fostering courage, creativity, compassion, and strong ethics.
+              </p>
+              <p>
+                I invite you to experience LIS for yourself—families who visit fall in love. Attend an Open House or schedule a tour. The moment you walk through our doors, you'll know what sets LIS apart.
+              </p>
+              <p>
+                Please call the Admissions Office to begin the process. We look forward to meeting you!
+              </p>
+            </div>
+          </div>
+          
+          <!-- Image Block agrandie (md:w-2/5) -->
+          <div class="md:w-2/5 self-end">
+            <div class="rounded-lg shadow-md overflow-hidden">
+              <img src="assets/images/Admission-welcom.jpg" alt="Welcome to Admissions" class="w-full h-auto">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- WHO WILL BENEFIT SECTION -->
+    <section class="bg-gray-50 py-12">
+      <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl font-bold text-[#012E67] text-center mb-10">WHO WILL BENEFIT FROM LIS?</h2>
+        <!-- Boîte de liste à puces (check icons) -->
+        <div class="bg-white shadow-md rounded-lg p-6 max-w-4xl mx-auto">
+          <ul class="space-y-4 text-gray-700 text-lg">
+            <li class="flex gap-2">
+              <i class="fas fa-check-circle text-[#F58220] mt-1"></i>
+              <span>Parents who want their children to follow a <strong>strong and accredited American curriculum</strong>.</span>
+            </li>
+            <li class="flex gap-2">
+              <i class="fas fa-check-circle text-[#F58220] mt-1"></i>
+              <span>Parents who appreciate a wholesome education with <strong>high academic and moral standards</strong>.</span>
+            </li>
+            <li class="flex gap-2">
+              <i class="fas fa-check-circle text-[#F58220] mt-1"></i>
+              <span>Parents who want their children to be <strong>completely bilingual, English and French</strong>.</span>
+            </li>
+            <li class="flex gap-2">
+              <i class="fas fa-check-circle text-[#F58220] mt-1"></i>
+              <span>Parents who value an education that is <strong>flexible and adaptable</strong> to a child’s capabilities, with a <strong>small size classroom</strong>.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    
+    <!-- WHY CHOOSE LIS SECTION -->
+    <section class="py-40 bg-white">
+      <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl font-bold text-[#012E67] text-center mb-4">WHY CHOOSE LIS?</h2>
+        <p class="text-center text-gray-600 mb-12">
+          Discover the unique advantages that set Luke International School apart
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          <!-- Feature 1 -->
+          <div class="flex items-start">
+            <!-- Icône non compressée (w-14 h-14) -->
+            <div class="bg-[#F58220] w-14 h-14 rounded-full flex items-center justify-center text-white shadow-md">
+              <i class="fas fa-book text-xl"></i>
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-semibold text-[#012E67]">"A Beka" Curriculum</h3>
+              <p class="mt-2 text-gray-700">We use a strong accredited curriculum from “A Beka”.</p>
+            </div>
+          </div>
+          <!-- Feature 2 -->
+          <div class="flex items-start">
+            <div class="bg-[#F58220] w-14 h-14 rounded-full flex items-center justify-center text-white shadow-md">
+              <i class="fas fa-chalkboard-teacher text-xl"></i>
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-semibold text-[#012E67]">Certified Teachers</h3>
+              <p class="mt-2 text-gray-700">We invest in experienced and qualified educators.</p>
+            </div>
+          </div>
+          <!-- Feature 3 -->
+          <div class="flex items-start">
+            <div class="bg-[#F58220] w-14 h-14 rounded-full flex items-center justify-center text-white shadow-md">
+              <i class="fas fa-trophy text-xl"></i>
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-semibold text-[#012E67]">Leadership</h3>
+              <p class="mt-2 text-gray-700">We instill leadership, technology, and entrepreneurial skills.</p>
+            </div>
+          </div>
+          <!-- Feature 4 -->
+          <div class="flex items-start">
+            <div class="bg-[#F58220] w-14 h-14 rounded-full flex items-center justify-center text-white shadow-md">
+              <i class="fas fa-hand-holding-heart text-xl"></i>
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-semibold text-[#012E67]">No Child Left Behind</h3>
+              <p class="mt-2 text-gray-700">We adapt to each child’s needs, ensuring everyone thrives.</p>
+            </div>
+          </div>
+          <!-- Feature 5 -->
+          <div class="flex items-start">
+            <div class="bg-[#F58220] w-14 h-14 rounded-full flex items-center justify-center text-white shadow-md">
+              <i class="fas fa-language text-xl"></i>
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-semibold text-[#012E67]">Bilingual Student</h3>
+              <p class="mt-2 text-gray-700">We develop a fully bilingual English-French student body.</p>
+            </div>
+          </div>
+          <!-- Feature 6 -->
+          <div class="flex items-start">
+            <div class="bg-[#F58220] w-14 h-14 rounded-full flex items-center justify-center text-white shadow-md">
+              <i class="fas fa-users text-xl"></i>
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-semibold text-[#012E67]">Small Class Size</h3>
+              <p class="mt-2 text-gray-700">Classes are limited to 20 students, maximizing individual attention.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- APPLICATION PROCESS CTA -->
+    <section class="bg-[#012E67] text-white ">
+      <div class="max-w-5xl mx-auto px-4 py-20 text-center">
+        <h2 class="text-3xl font-bold mb-4">Begin Your Application Journey</h2>
+        <p class="mb-6 text-lg max-w-3xl mx-auto">
+          We're excited to welcome your family to Luke International School. Take the first step toward providing your child with an exceptional educational experience.
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+          <a href="application.html" 
+             class="bg-[#F58220] hover:bg-orange-600 transition-all duration-300 px-8 py-3 rounded-md text-white font-semibold shadow-lg hover:shadow-xl">
+            Apply Now
+          </a>
+          <a href="event.html" 
+             class="bg-white text-[#012E67] hover:bg-gray-100 transition-all duration-300 px-8 py-3 rounded-md font-semibold shadow-lg hover:shadow-xl">
+            Upcoming Events
+          </a>
+        </div>
+      </div>
+      <!-- Ligne de séparation discrète au-dessus du footer -->
+      <div class="h-[2px] bg-gray-300"></div>
+    </section>
+    
+  </main>
+  
+  <!-- FOOTER -->
+  <footer class="bg-[#012E67] text-white">
+    <div class="max-w-7xl mx-auto px-4 py-8 flex flex-col sm:flex-row justify-between items-center">
+      <div class="mb-4 sm:mb-0 text-center">
+        <img src="assets/images/logo.png" alt="LIS AB Footer Logo" class="h-8 w-auto mb-2">
+        <p class="text-sm">&copy; 2025 Luke International School. All rights reserved.</p>
+      </div>
+      <div class="flex space-x-4">
+        <a href="#" aria-label="Facebook" class="hover:text-[#F58220] transition">
+          <i class="fab fa-facebook-f fa-lg"></i>
+        </a>
+        <a href="#" aria-label="YouTube" class="hover:text-[#F58220] transition">
+          <i class="fab fa-youtube fa-lg"></i>
+        </a>
+        <a href="#" aria-label="Twitter" class="hover:text-[#F58220] transition">
+          <i class="fab fa-twitter fa-lg"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuBtn = document.getElementById('menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+          document.body.style.overflow = mobileMenu.classList.contains('hidden') ? '' : 'hidden';
+        });
+      }
+      
+      const dropdownBtns = document.querySelectorAll('.mobile-dropdown-btn');
+      dropdownBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const targetId = btn.getAttribute('data-target');
+          const targetDropdown = document.getElementById(targetId);
+          const arrow = btn.querySelector('.fa-chevron-down');
+          if (targetDropdown) {
+            targetDropdown.classList.toggle('hidden');
+            if (targetDropdown.classList.contains('hidden')) {
+              arrow.classList.remove('transform', 'rotate-180');
+            } else {
+              arrow.classList.add('transform', 'rotate-180');
+            }
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LIS AB - Location</title>
+  
+  <!-- Google Fonts (Montserrat) -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    main {
+      flex: 1;
+    }
+    /* Animation fade-in */
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    .info-card {
+      background-color: white;
+      border-left: 4px solid #F58220;
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-800">
+
+  <!-- ========== HEADER / NAVBAR ========== -->
+  <header class="w-full bg-[#012E67] shadow-md fixed top-0 left-0 z-50 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-4">
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center">
+        <img src="assets/images/logo.png" alt="LIS AB Logo" class="h-10 w-auto">
+      </a>
+      
+      <!-- Navigation Desktop -->
+      <nav class="hidden md:flex space-x-6 text-sm font-medium">
+        <a href="index.html" class="hover:text-[#F58220] transition">HOME</a>
+        
+        <!-- About Dropdown -->
+        <div class="relative group">
+          <button class="inline-flex items-center hover:text-[#F58220] transition focus:outline-none">
+            <span>ABOUT</span>
+            <i class="ml-1 fas fa-chevron-down text-xs"></i>
+          </button>
+          <div class="absolute left-0 mt-2 w-48 bg-white rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+            <div class="py-1 border-l-4 border-[#F58220]">
+              <a href="about.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">About Us</a>
+              <a href="about-board.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Our Board</a>
+              <a href="about-staff.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Our Staff</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Admissions Dropdown -->
+        <div class="relative group">
+          <button class="inline-flex items-center hover:text-[#F58220] transition focus:outline-none">
+            <span>ADMISSIONS</span>
+            <i class="ml-1 fas fa-chevron-down text-xs"></i>
+          </button>
+          <div class="absolute left-0 mt-2 w-48 bg-white rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+            <div class="py-1 border-l-4 border-[#F58220]">
+              <a href="admissions.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Admissions Welcome</a>
+              <a href="event.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Event & Deadlines</a>
+              <a href="placement.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Placement Test</a>
+              <a href="application.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Application Form</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Academics Program (pas de dropdown) -->
+        <a href="academics.html" class="hover:text-[#F58220] transition">ACADEMICS</a>
+        
+        <!-- After-School Program (pas de dropdown) -->
+        <a href="afterschool.html" class="hover:text-[#F58220] transition">AFTER-SCHOOL PROGRAM</a>
+        
+        <!-- School Info Dropdown -->
+        <div class="relative group">
+          <button class="inline-flex items-center hover:text-[#F58220] transition focus:outline-none">
+            <span>SCHOOL INFO</span>
+            <i class="ml-1 fas fa-chevron-down text-xs"></i>
+          </button>
+          <div class="absolute left-0 mt-2 w-48 bg-white rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+            <div class="py-1 border-l-4 border-[#F58220]">
+              <a href="location.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Location</a>
+              <a href="newsletter.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Newsletter</a>
+              <a href="parent.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Parent Association</a>
+              <a href="calendar.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Calendar</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- School Events (au lieu de Pictures Gallery) -->
+        <a href="gallery.html" class="hover:text-[#F58220] transition">SCHOOL EVENTS</a>
+        
+        <!-- Switch de langue -->
+        <a href="fr/index.html" class="hover:text-[#F58220] transition">FR</a>
+      </nav>
+      
+      <!-- Bouton Menu Mobile -->
+      <button id="menu-btn" class="md:hidden focus:outline-none">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+    
+    <!-- Navigation Mobile -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white text-gray-800 px-4">
+      <ul class="space-y-2 py-2">
+        <li>
+          <a href="index.html" class="block py-2 hover:bg-gray-100 font-medium">HOME</a>
+        </li>
+        <!-- Dropdown About -->
+        <li class="relative">
+          <button class="mobile-dropdown-btn flex justify-between items-center w-full py-2 hover:bg-gray-100 focus:outline-none font-medium" data-target="mobile-dropdown-about">
+            ABOUT <i class="fas fa-chevron-down transition-transform duration-300"></i>
+          </button>
+          <ul id="mobile-dropdown-about" class="hidden pl-4 border-l-2 border-[#F58220] my-1">
+            <li><a href="about.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">About Us</a></li>
+            <li><a href="about-board.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Our Board</a></li>
+            <li><a href="about-staff.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Our Staff</a></li>
+          </ul>
+        </li>
+        <!-- Dropdown Admissions -->
+        <li class="relative">
+          <button class="mobile-dropdown-btn flex justify-between items-center w-full py-2 hover:bg-gray-100 focus:outline-none font-medium" data-target="mobile-dropdown-admissions">
+            ADMISSIONS <i class="fas fa-chevron-down transition-transform duration-300"></i>
+          </button>
+          <ul id="mobile-dropdown-admissions" class="hidden pl-4 border-l-2 border-[#F58220] my-1">
+            <li><a href="admissions.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Admissions Welcome</a></li>
+            <li><a href="event.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Event & Deadlines</a></li>
+            <li><a href="placement.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Placement Test</a></li>
+            <li><a href="application.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Application Form</a></li>
+          </ul>
+        </li>
+       <!-- After-School Program (sans dropdown) -->
+       <li>
+        <a href="academics.html" class="block py-2 hover:bg-gray-100 font-medium">ACADEMICS</a>
+      </li>
+        <!-- After-School Program (sans dropdown) -->
+        <li>
+          <a href="afterschool.html" class="block py-2 hover:bg-gray-100 font-medium">AFTER-SCHOOL PROGRAM</a>
+        </li>
+        <!-- Dropdown School Info -->
+        <li class="relative">
+          <button class="mobile-dropdown-btn flex justify-between items-center w-full py-2 hover:bg-gray-100 focus:outline-none font-medium" data-target="mobile-dropdown-schoolinfo">
+            SCHOOL INFO <i class="fas fa-chevron-down transition-transform duration-300"></i>
+          </button>
+          <ul id="mobile-dropdown-schoolinfo" class="hidden pl-4 border-l-2 border-[#F58220] my-1">
+            <li><a href="location.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Location</a></li>
+            <li><a href="newsletter.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Newsletter</a></li>
+            <li><a href="parent.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Parent Association</a></li>
+            <li><a href="calendar.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Calendar</a></li>
+          </ul>
+        </li>
+        <!-- School Events -->
+        <li>
+          <a href="gallery.html" class="block py-2 hover:bg-gray-100 font-medium">SCHOOL EVENTS</a>
+        </li>
+        <!-- Switch de langue -->
+        <li>
+          <a href="fr/index.html" class="block py-2 hover:bg-gray-100 font-medium">FR</a>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="flex-grow pt-20 pb-12">
+ 
+    <!-- SECTION CARTE -->
+    <section class="max-w-7xl mx-auto px-4 py-8 mb-12">
+      <div class="flex flex-col lg:flex-row">
+        <!-- Map Container -->
+        <div class="w-full lg:w-3/4 h-96 lg:h-auto relative">
+          <iframe 
+            src="https://maps.google.com/maps?q=5.353247299839338,-3.9552867423278464&hl=en&z=15&amp;output=embed" 
+            width="100%" 
+            height="100%" 
+            frameborder="0" 
+            style="border:0; min-height: 400px;" 
+            allowfullscreen="" 
+            aria-hidden="false" 
+            tabindex="0"
+            class="w-full h-full rounded-lg shadow-md">
+          </iframe>
+        </div>
+        
+        <!-- Information Card -->
+        <div class="w-full lg:w-1/4 mt-6 lg:mt-0 lg:pl-8">
+          <div class="info-card bg-white rounded-lg shadow-lg p-6">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 bg-[#012E67] rounded-full flex items-center justify-center mr-4">
+                <i class="fas fa-map-marker-alt text-white text-xl"></i>
+              </div>
+              <h2 class="text-2xl font-bold text-[#012E67]">Luke International School</h2>
+            </div>
+            
+            <div class="space-y-6">
+              <div class="flex items-start">
+                <div class="w-10 flex justify-center mt-1">
+                  <i class="fas fa-map text-[#F58220] text-xl"></i>
+                </div>
+                <div class="ml-4">
+                  <h3 class="font-semibold text-[#012E67] text-lg">Address</h3>
+                  <p class="text-gray-700">Abidjan, Côte d'Ivoire</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start">
+                <div class="w-10 flex justify-center mt-1">
+                  <i class="fas fa-phone text-[#F58220] text-xl"></i>
+                </div>
+                <div class="ml-4">
+                  <h3 class="font-semibold text-[#012E67] text-lg">Phone</h3>
+                  <p class="text-gray-700">+225 85 53 28 40</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start">
+                <div class="w-10 flex justify-center mt-1">
+                  <i class="fas fa-envelope text-[#F58220] text-xl"></i>
+                </div>
+                <div class="ml-4">
+                  <h3 class="font-semibold text-[#012E67] text-lg">Email</h3>
+                  <a href="mailto:info@lisabj.org" class="text-gray-700 hover:text-[#F58220]">info@lisabj.org</a>
+                </div>
+              </div>
+              
+              <h3 class="font-semibold text-[#012E67] text-lg pt-2">Follow Us</h3>
+              <div class="flex space-x-4">
+                <a href="https://web.facebook.com/LukeInternationalSchool/" target="_blank" class="bg-[#012E67] text-white hover:bg-[#F58220] transition w-10 h-10 rounded-full flex items-center justify-center">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://www.youtube.com/channel/UCjFGZja9JsrNnouzHc8Ok-g" target="_blank" class="bg-[#012E67] text-white hover:bg-[#F58220] transition w-10 h-10 rounded-full flex items-center justify-center">
+                  <i class="fab fa-youtube"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Opening Hours Card -->
+          <div class="info-card bg-white rounded-lg shadow-lg p-6 mt-6">
+            <div class="flex items-center mb-4">
+              <div class="w-10 h-10 bg-[#012E67] rounded-full flex items-center justify-center mr-4">
+                <i class="fas fa-clock text-white"></i>
+              </div>
+              <h3 class="text-xl font-bold text-[#012E67]">Opening Hours</h3>
+            </div>
+            <ul class="space-y-2 text-gray-700">
+              <li class="flex justify-between">
+                <span>Monday - Friday:</span>
+                <span class="font-semibold">7:30 AM - 4:30 PM</span>
+              </li>
+              <li class="flex justify-between">
+                <span>Saturday:</span>
+                <span class="font-semibold">Closed</span>
+              </li>
+              <li class="flex justify-between">
+                <span>Sunday:</span>
+                <span class="font-semibold">Closed</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="bg-[#012E67] text-white mt-auto">
+    <div class="max-w-7xl mx-auto px-4 py-8 flex flex-col sm:flex-row justify-between items-center">
+      <!-- Logo & Copyright -->
+      <div class="mb-4 sm:mb-0 text-center">
+        <img src="assets/images/logo.png" alt="LIS AB Footer Logo" class="h-8 w-auto mb-2">
+        <p class="text-sm">&copy; 2025 Luke International School. All rights reserved.</p>
+      </div>
+      <!-- Icônes sociales -->
+      <div class="flex space-x-4">
+        <a href="https://web.facebook.com/LukeInternationalSchool/" aria-label="Facebook" class="hover:text-[#F58220] transition">
+          <i class="fab fa-facebook-f fa-lg"></i>
+        </a>
+        <a href="https://www.youtube.com/channel/UCjFGZja9JsrNnouzHc8Ok-g" aria-label="YouTube" class="hover:text-[#F58220] transition">
+          <i class="fab fa-youtube fa-lg"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== SCRIPTS ========== -->
+  <script>
+    // Mobile menu toggle
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuBtn = document.getElementById('menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        // Optionnel : gestion du scroll du body
+        if (!mobileMenu.classList.contains('hidden')) {
+          document.body.style.overflow = 'hidden';
+        } else {
+          document.body.style.overflow = '';
+        }
+      });
+      
+      // Gestion des dropdowns mobiles
+      const dropdownBtns = document.querySelectorAll('.mobile-dropdown-btn');
+      dropdownBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const targetId = btn.getAttribute('data-target');
+          const targetDropdown = document.getElementById(targetId);
+          const arrow = btn.querySelector('.fa-chevron-down');
+          if (targetDropdown) {
+            targetDropdown.classList.toggle('hidden');
+            if (targetDropdown.classList.contains('hidden')) {
+              arrow.classList.remove('transform', 'rotate-180');
+            } else {
+              arrow.classList.add('transform', 'rotate-180');
+            }
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
