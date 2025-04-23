@@ -3,424 +3,1205 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>LIS AB - Home</title>
+  <title>Luke International School - Our Staff</title>
   
-  <!-- Google Fonts (Montserrat) -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet"/>
   
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
+  <!-- GSAP & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <!-- AOS - Animate On Scroll -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Feuille de style custom (sans @tailwind directives si CDN utilisé) -->
-  <link rel="stylesheet" href="assets/css/custom.css"/>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'primary': '#012E67',
+            'primary-dark': '#001b3e',
+            'accent': '#F58220',
+            'accent-light': '#ff9f4d',
+          },
+          fontFamily: {
+            'poppins': ['Poppins', 'sans-serif'],
+            'raleway': ['Raleway', 'sans-serif'],
+          },
+          height: {
+            '100': '100vh',
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'spin-slow': 'spin 12s linear infinite',
+            'morph': 'morph 8s ease-in-out infinite',
+            'bounce-slow': 'bounce 3s infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-20px)' },
+            },
+            morph: {
+              '0%': { borderRadius: '60% 40% 30% 70%/60% 30% 70% 40%' },
+              '50%': { borderRadius: '30% 60% 70% 40%/50% 60% 30% 60%' },
+              '100%': { borderRadius: '60% 40% 30% 70%/60% 30% 70% 40%' },
+            }
+          }
+        }
+      }
+    }
+  </script>
   
   <style>
-    body {
-      font-family: 'Montserrat', sans-serif;
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Poppins', sans-serif; overflow-x: hidden; }
+    
+    /* Navbar & Hamburger */
+    header { transition: background 0.3s, box-shadow 0.3s; }
+    .nav-link {
+      position: relative;
     }
-    /* Animation fade-in */
-    .fade-in {
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: #F58220;
+      transition: width 0.3s;
+    }
+    .nav-link:hover::after, .nav-link.active::after {
+      width: 100%;
+    }
+    .hamburger-line {
+      transition: all 0.3s ease;
+    }
+    .hamburger.open .line-1 {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .hamburger.open .line-2 { opacity: 0; }
+    .hamburger.open .line-3 {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+    
+    /* Text gradient */
+    .text-gradient {
+      background: linear-gradient(90deg, #F58220, #ff9f4d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    /* Custom cursor */
+    .custom-cursor, .cursor-dot { position: fixed; pointer-events: none; z-index: 10000; display: none; }
+    .custom-cursor {
+      width: 40px; height: 40px; border: 2px solid rgba(245,130,32,0.5);
+      border-radius: 50%; transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s, border-color 0.3s;
+    }
+    .cursor-dot {
+      width: 8px; height: 8px; background-color: #F58220; border-radius: 50%;
+      transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s, background-color 0.3s;
+    }
+    
+    /* Loader */
+    .loader {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      display: flex; justify-content: center; align-items: center;
+      background-color: #012E67;
+      z-index: 9999;
+      transition: opacity 0.8s, visibility 0.8s;
+    }
+    .loader.hidden {
       opacity: 0;
-      animation: fadeIn 1s forwards;
+      visibility: hidden;
     }
-    @keyframes fadeIn {
-      to { opacity: 1; }
+    .loader-content { display: flex; flex-direction: column; align-items: center; }
+    .loader-spinner {
+      width: 80px; height: 80px; border: 4px solid rgba(255,255,255,0.1);
+      border-radius: 50%; border-top: 4px solid #F58220; animation: spin 1s linear infinite;
     }
-    /* Pour le crossfade du hero */
-    #hero-slide-1, #hero-slide-2 {
-      will-change: opacity;
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .loader-text {
+      margin-top: 20px; font-family: 'Raleway', sans-serif; font-weight: 300;
+      letter-spacing: 5px; color: white; opacity: 0; animation: fadeIn 2s forwards 0.5s;
     }
+    @keyframes fadeIn { to { opacity: 1; } }
+    
+    /* Hero section for staff page */
+    .hero-staff {
+      position: relative;
+      height: 50vh;
+      width: 100%;
+      overflow: hidden;
+      background-color: #012E67;
+    }
+    
+    .hero-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #012E67;
+      z-index: -10;
+    }
+    
+    .hero-gradient-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(1, 46, 103, 0.7) 0%, rgba(0, 27, 62, 0.9) 100%);
+      z-index: -4;
+    }
+    
+    /* Image mask reveal */
+    .image-mask {
+      clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+      transition: clip-path 1.5s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+    
+    .image-mask.revealed {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+    
+    /* Staff card effect */
+    .staff-card {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.5s ease;
+    }
+    
+    .staff-card:hover {
+      transform: translateY(-10px);
+    }
+    
+    .staff-image {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .staff-image img {
+      transition: transform 0.5s ease;
+    }
+    
+    .staff-card:hover .staff-image img {
+      transform: scale(1.05);
+    }
+    
+    .staff-content {
+      position: relative;
+      z-index: 10;
+    }
+    
+    .staff-card .role-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 10;
+      transition: transform 0.3s ease;
+    }
+    
+    .staff-card:hover .role-badge {
+      transform: scale(1.1);
+    }
+    
+    .staff-card .social-links {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      z-index: 10;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+    }
+    
+    .staff-card:hover .social-links {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Department tabs */
+    .department-tab {
+      position: relative;
+      cursor: pointer;
+      padding: 1rem 2rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .department-tab::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background-color: #F58220;
+      transition: width 0.3s ease;
+    }
+    
+    .department-tab.active {
+      color: #F58220;
+    }
+    
+    .department-tab.active::after {
+      width: 100%;
+    }
+    
+    .department-content {
+      display: none;
+    }
+    
+    .department-content.active {
+      display: grid;
+    }
+    
+    /* Staggered animation for elements */
+    .stagger-item {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    
+    .stagger-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Animated underline */
+    .animated-underline {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .animated-underline::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, #F58220, #ff9f4d);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+    
+    .animated-underline.revealed::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+    
+    /* Fixed mobile menu */
+    #mobile-menu {
+      transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+    }
+    
+    .mobile-dropdown-content {
+      transition: max-height 0.3s ease;
+      overflow: hidden;
+    }
+    
+    /* Carousel for staff page images */
+    .image-carousel {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .carousel-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+    }
+
+    .dropdown-buffer {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 20px; /* Hauteur de la zone tampon */
+    z-index: 49; /* Juste en dessous du dropdown */
+  }
+  
+  /* Modification des styles existants pour le menu déroulant */
+  .group:hover .dropdown-menu,
+  .group:focus-within .dropdown-menu,
+  .group .dropdown-menu:hover {
+    visibility: visible;
+    opacity: 1;
+    display: block;
+  }
+  
+  /* Assurez-vous que le menu reste visible pendant la transition */
+  .dropdown-menu {
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    /* Autres styles déjà définis */
+  }
   </style>
 </head>
-<body class="bg-white text-white">
-
-  <!-- ========== HEADER / NAVBAR ========== -->
-  <header class="w-full bg-[#012E67] shadow-md fixed top-0 left-0 z-50 text-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-4">
-      <!-- Logo -->
-      <a href="index.html" class="flex items-center">
-        <img src="assets/images/logo.png" alt="LIS AB Logo" class="h-10 w-auto">
-      </a>
-      
-      <!-- Navigation Desktop -->
-      <nav class="hidden md:flex space-x-6 text-sm font-medium">
-       
-        
-        <!-- About Dropdown -->
-        <div class="relative group">
-          <button class="inline-flex items-center hover:text-[#F58220] transition focus:outline-none">
-            <span>ABOUT</span>
-            <i class="ml-1 fas fa-chevron-down text-xs"></i>
-          </button>
-          <div class="absolute left-0 mt-2 w-48 bg-white rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
-            <div class="py-1 border-l-4 border-[#F58220]">
-              <a href="about.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">About Us</a>
-              <a href="about-board.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Our Board</a>
-              <a href="about-staff.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Our Staff</a>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Admissions Dropdown -->
-        <div class="relative group">
-          <button class="inline-flex items-center hover:text-[#F58220] transition focus:outline-none">
-            <span>ADMISSIONS</span>
-            <i class="ml-1 fas fa-chevron-down text-xs"></i>
-          </button>
-          <div class="absolute left-0 mt-2 w-48 bg-white rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
-            <div class="py-1 border-l-4 border-[#F58220]">
-              <a href="admissions.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Admissions Welcome</a>
-              <a href="event.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Event & Deadlines</a>
-              <a href="placement.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Placement Test</a>
-              <a href="application.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Application Fomr</a>
-            </div>
-          </div>
-        </div>
-        
-        
-         <!-- Academics Program (pas de dropdown) -->
-         <a href="academics.html" class="hover:text-[#F58220] transition">ACADEMICS</a>
-        
-        <!-- After-School Program (pas de dropdown) -->
-        <a href="afterschool.html" class="hover:text-[#F58220] transition">AFTER-SCHOOL PROGRAM</a>
-        
-        <!-- School Info Dropdown -->
-        <div class="relative group">
-          <button class="inline-flex items-center hover:text-[#F58220] transition focus:outline-none">
-            <span>SCHOOL INFO</span>
-            <i class="ml-1 fas fa-chevron-down text-xs"></i>
-          </button>
-          <div class="absolute left-0 mt-2 w-48 bg-white rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
-            <div class="py-1 border-l-4 border-[#F58220]">
-              <a href="location.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Location</a>
-              <a href="newsletter.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Newsletter</a>
-              <a href="parent.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Parent Association</a>
-              <a href="calendar.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#F58220]">Calendar</a>
-            </div>
-          </div>
-        </div>
-        
-        <!-- School Events (au lieu de Pictures Gallery) -->
-        <a href="gallery.html" class="hover:text-[#F58220] transition">SCHOOL EVENTS</a>
-        
-        <!-- Switch de langue -->
-        <a href="fr/index.html" class="hover:text-[#F58220] transition">FR</a>
-      </nav>
-      
-      <!-- Bouton Menu Mobile -->
-      <button id="menu-btn" class="md:hidden focus:outline-none">
-        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
-      </button>
+<body class="bg-white text-gray-800">
+  <!-- Loader -->
+  <div class="loader" id="page-loader">
+    <div class="loader-content">
+      <div class="loader-spinner"></div>
+      <div class="loader-text">LUKE INTERNATIONAL SCHOOL</div>
     </div>
-    
-    <!-- Navigation Mobile -->
-    <div id="mobile-menu" class="hidden md:hidden bg-white text-gray-800 px-4">
-      <ul class="space-y-2 py-2">
-        <li>
-          <a href="index.html" class="block py-2 hover:bg-gray-100 font-medium">HOME</a>
-        </li>
-        <!-- Dropdown About -->
-        <li class="relative">
-          <button class="mobile-dropdown-btn flex justify-between items-center w-full py-2 hover:bg-gray-100 focus:outline-none font-medium" data-target="mobile-dropdown-about">
-            ABOUT <i class="fas fa-chevron-down transition-transform duration-300"></i>
-          </button>
-          <ul id="mobile-dropdown-about" class="hidden pl-4 border-l-2 border-[#F58220] my-1">
-            <li><a href="about.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">About Us</a></li>
-            <li><a href="about-board.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Our Board</a></li>
-            <li><a href="about-staff.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Our Staff</a></li>
-          </ul>
-        </li>
-        <!-- Dropdown Admissions -->
-        <li class="relative">
-          <button class="mobile-dropdown-btn flex justify-between items-center w-full py-2 hover:bg-gray-100 focus:outline-none font-medium" data-target="mobile-dropdown-admissions">
-            ADMISSIONS <i class="fas fa-chevron-down transition-transform duration-300"></i>
-          </button>
-          <ul id="mobile-dropdown-admissions" class="hidden pl-4 border-l-2 border-[#F58220] my-1">
-            <li><a href="admissions.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Admissions Welcome</a></li>
-            <li><a href="event.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Event & Deadlines</a></li>
-            <li><a href="placement.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Placement Test</a></li>
-            <li><a href="application.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Application Form</a></li>
-          </ul>
-        </li>
-       <!-- After-School Program (sans dropdown) -->
-       <li>
-        <a href="academics.html" class="block py-2 hover:bg-gray-100 font-medium">ACADEMICS</a>
-      </li>
-        <!-- After-School Program (sans dropdown) -->
-        <li>
-          <a href="afterschool.html" class="block py-2 hover:bg-gray-100 font-medium">AFTER-SCHOOL PROGRAM</a>
-        </li>
-        <!-- Dropdown School Info -->
-        <li class="relative">
-          <button class="mobile-dropdown-btn flex justify-between items-center w-full py-2 hover:bg-gray-100 focus:outline-none font-medium" data-target="mobile-dropdown-schoolinfo">
-            SCHOOL INFO <i class="fas fa-chevron-down transition-transform duration-300"></i>
-          </button>
-          <ul id="mobile-dropdown-schoolinfo" class="hidden pl-4 border-l-2 border-[#F58220] my-1">
-            <li><a href="location.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Location</a></li>
-            <li><a href="newsletter.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Newsletter</a></li>
-            <li><a href="parent.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Parent Association</a></li>
-            <li><a href="calendar.html" class="block py-2 hover:bg-gray-100 hover:text-[#F58220]">Calendar</a></li>
-          </ul>
-        </li>
-        <!-- School Events -->
-        <li>
-          <a href="gallery.html" class="block py-2 hover:bg-gray-100 font-medium">SCHOOL EVENTS</a>
-        </li>
-        <!-- Switch de langue -->
-        <li>
-          <a href="fr/index.html" class="block py-2 hover:bg-gray-100 font-medium">FR</a>
-        </li>
-      </ul>
+  </div>
+  
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" id="custom-cursor"></div>
+  <div class="cursor-dot" id="cursor-dot"></div>
+  
+  <!-- HEADER / NAVBAR -->
+  <header class="w-full fixed top-0 left-0 z-50 bg-primary bg-opacity-95" id="main-header">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center py-4">
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center">
+          <img src="assets/images/logo.png" alt="LIS AB Logo" class="h-12 w-auto transition-all duration-300">
+        </a>
+        <!-- Navigation Desktop -->
+        <nav class="hidden lg:flex space-x-8 text-sm font-medium">
+          <!-- Dropdown About -->
+          <div class="relative dropdown-container">
+            <button class="nav-link inline-flex items-center text-white hover:text-accent transition-colors focus:outline-none dropdown-toggle" data-dropdown="about-dropdown">
+              <span>ABOUT</span>
+              <i class="ml-1 fas fa-chevron-down text-xs transition-transform"></i>
+            </button>
+            <div id="about-dropdown" class="dropdown-content absolute left-0 mt-2 w-60 bg-white rounded-xl shadow-2xl border-t-4 border-accent overflow-hidden hidden">
+              <a href="about.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 hover:text-accent transition-colors">About Us</a>
+              <a href="about-board.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 hover:text-accent transition-colors">Our Board</a>
+              <a href="about-staff.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 hover:text-accent transition-colors">Our Staff</a>
+            </div>
+          </div>
+          <!-- Dropdown Admissions -->
+          <div class="relative dropdown-container">
+            <button class="nav-link inline-flex items-center text-white hover:text-accent transition-colors focus:outline-none dropdown-toggle" data-dropdown="admissions-dropdown">
+              <span>ADMISSIONS</span>
+              <i class="ml-1 fas fa-chevron-down text-xs transition-transform"></i>
+            </button>
+            <div id="admissions-dropdown" class="dropdown-content absolute left-0 mt-2 w-60 bg-white rounded-xl shadow-2xl border-t-4 border-accent overflow-hidden hidden">
+              <a href="admissions.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 hover:text-accent transition-colors">Admissions Welcome</a>
+              <a href="event.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 hover:text-accent transition-colors">Events &amp; Deadlines</a>
+              <a href="placement.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 hover:text-accent transition-colors">Placement Test</a>
+              <a href="application.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 hover:text-accent transition-colors">Application Form</a>
+            </div>
+          </div>
+          <a href="academics.html" class="nav-link text-white hover:text-accent transition-colors">ACADEMICS</a>
+          <a href="afterschool.html" class="nav-link text-white hover:text-accent transition-colors">AFTER-SCHOOL</a>
+          <!-- Dropdown School Info -->
+          <div class="relative dropdown-container">
+            <button class="nav-link inline-flex items-center text-white hover:text-accent transition-colors focus:outline-none dropdown-toggle" data-dropdown="info-dropdown">
+              <span>SCHOOL INFO</span>
+              <i class="ml-1 fas fa-chevron-down text-xs transition-transform"></i>
+            </button>
+            <div id="info-dropdown" class="dropdown-content absolute left-0 mt-2 w-60 bg-white rounded-xl shadow-2xl border-t-4 border-accent overflow-hidden hidden">
+              <a href="location.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 hover:text-accent transition-colors">Location</a>
+              <a href="newsletter.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 hover:text-accent transition-colors">Newsletter</a>
+              <a href="parent.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 hover:text-accent transition-colors">Parent Association</a>
+              <a href="calendar.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 hover:text-accent transition-colors">Calendar</a>
+            </div>
+          </div>
+          <a href="gallery.html" class="nav-link text-white hover:text-accent transition-colors">EVENTS</a>
+          <a href="fr/index.html" class="nav-link flex items-center text-white hover:text-accent transition-colors">
+            <span class="mr-1">FR</span>
+            <i class="fas fa-globe-americas text-xs"></i>
+          </a>
+        </nav>
+        <!-- CTA (Desktop) -->
+        <div class="hidden lg:block">
+          <a href="admissions.html" class="bg-accent hover:bg-accent-light text-white px-6 py-2 rounded-full font-semibold transition-all transform hover:scale-105">Apply Now</a>
+        </div>
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="lg:hidden text-white focus:outline-none">
+          <div class="hamburger">
+            <span class="hamburger-line block w-8 h-0.5 bg-white mb-1.5 transition-all"></span>
+            <span class="hamburger-line block w-8 h-0.5 bg-white mb-1.5 transition-all"></span>
+            <span class="hamburger-line block w-8 h-0.5 bg-white transition-all"></span>
+          </div>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-primary z-30 flex flex-col justify-center items-center transform translate-x-full transition-transform duration-500 ease-in-out">
+      <button id="mobile-close-btn" class="absolute top-6 right-6 text-white">
+        <i class="fas fa-times fa-2x"></i>
+      </button>
+      <nav class="text-center">
+        <ul class="space-y-6">
+          <li>
+            <button class="mobile-dropdown-btn text-white text-2xl font-light hover:text-accent transition-colors flex items-center justify-center">
+              ABOUT <i class="ml-2 fas fa-chevron-down text-xs"></i>
+            </button>
+            <ul class="mobile-dropdown-content hidden mt-4 space-y-3">
+              <li><a href="about.html" class="text-white text-lg opacity-80 hover:text-accent transition-colors">About Us</a></li>
+              <li><a href="about-board.html" class="text-white text-lg opacity-80 hover:text-accent transition-colors">Our Board</a></li>
+              <li><a href="about-staff.html" class="text-white text-lg opacity-80 hover:text-accent transition-colors">Our Staff</a></li>
+            </ul>
+          </li>
+          <li>
+            <button class="mobile-dropdown-btn text-white text-2xl font-light hover:text-accent transition-colors flex items-center justify-center">
+              ADMISSIONS <i class="ml-2 fas fa-chevron-down text-xs"></i>
+            </button>
+            <ul class="mobile-dropdown-content hidden mt-4 space-y-3">
+              <li><a href="admissions.html" class="text-white text-lg opacity-80 hover:text-accent transition-colors">Admissions Welcome</a></li>
+              <li><a href="event.html" class="text-white text-lg opacity-80 hover:text-accent transition-colors">Events &amp; Deadlines</a></li>
+              <li><a href="placement.html" class="text-white text-lg opacity-80 hover:text-accent transition-colors">Placement Test</a></li>
+              <li><a href="application.html" class="text-white text-lg opacity-80 hover:text-accent transition-colors">Application Form</a></li>
+            </ul>
+          </li>
+          <li><a href="academics.html" class="text-white text-2xl font-light hover:text-accent transition-colors">ACADEMICS</a></li>
+          <li><a href="afterschool.html" class="text-white text-2xl font-light hover:text-accent transition-colors">AFTER-SCHOOL</a></li>
+          <li>
+            <button class="mobile-dropdown-btn text-white text-2xl font-light hover:text-accent transition-colors flex items-center justify-center">
+              SCHOOL INFO <i class="ml-2 fas fa-chevron-down text-xs"></i>
+            </button>
+            <ul class="mobile-dropdown-content hidden mt-4 space-y-3">
+              <li><a href="location.html" class="text-white text-lg opacity-80 hover:text-accent transition-colors">Location</a></li>
+              <li><a href="newsletter.html" class="text-white text-lg opacity-80 hover:text-accent transition-colors">Newsletter</a></li>
+              <li><a href="parent.html" class="text-white text-lg opacity-80 hover:text-accent transition-colors">Parent Association</a></li>
+              <li><a href="calendar.html" class="text-white text-lg opacity-80 hover:text-accent transition-colors">Calendar</a></li>
+            </ul>
+          </li>
+          <li><a href="gallery.html" class="text-white text-2xl font-light hover:text-accent transition-colors">EVENTS</a></li>
+          <li><a href="fr/index.html" class="text-white text-2xl font-light hover:text-accent transition-colors">FR</a></li>
+        </ul>
+      </nav>
+      <div class="mt-16 flex space-x-6">
+        <a href="#" class="text-white hover:text-accent transition-colors"><i class="fab fa-facebook-f fa-lg"></i></a>
+        <a href="#" class="text-white hover:text-accent transition-colors"><i class="fab fa-youtube fa-lg"></i></a>
+        <a href="#" class="text-white hover:text-accent transition-colors"><i class="fab fa-twitter fa-lg"></i></a>
+      </div>
     </div>
   </header>
-
-
-<!-- MAIN CONTENT -->
-<main class="pt-20">
-    <!-- HERO SECTION -->
-    <section class="relative h-[40vh] flex items-center justify-center overflow-hidden">
-      <img src="assets/images/1-Fist-picture-Ordinary-Day.jpg" alt="Hero – Staff" class="absolute inset-0 w-full h-full object-cover">
-      <div class="absolute inset-0 bg-black bg-opacity-40"></div>
-      <div class="relative text-center px-4 fade-in">
-        <h1 class="text-3xl md:text-4xl font-bold text-white">LIS educators </h1>
-        <p class="mt-2 text-white text-sm md:text-base">Meet the dedicated team at Luke International School</p>
+  
+  <!-- MAIN CONTENT -->
+  <main>
+    <!-- HERO SECTION WITH CAROUSEL -->
+    <section class="hero-staff relative">
+      <!-- Carousel d'images -->
+      <div class="image-carousel absolute inset-0 w-full h-full">
+        <div class="carousel-slide absolute inset-0 w-full h-full bg-cover bg-center opacity-0 transition-opacity duration-1000 ease-in-out" style="background-image: url('assets/images/1-Fist-picture-Ordinary-Day.jpg');"></div>
+        <div class="carousel-slide absolute inset-0 w-full h-full bg-cover bg-center opacity-0 transition-opacity duration-1000 ease-in-out" style="background-image: url('assets/images/LIS-teatchers.jpg');"></div>
+        <div class="carousel-slide absolute inset-0 w-full h-full bg-cover bg-center opacity-0 transition-opacity duration-1000 ease-in-out" style="background-image: url('assets/images/5-1.jpg');"></div>
+      </div>
+      
+      <!-- Overlay -->
+      <div class="absolute inset-0 bg-black bg-opacity-50 z-[1]"></div>
+      
+      <!-- Hero Content -->
+      <div class="relative h-full flex items-center justify-center px-6 z-10">
+        <div class="max-w-6xl mx-auto text-center">
+          <h1 class="text-5xl md:text-6xl font-bold text-white mb-6 stagger-item">
+            <span class="text-accent">Our</span>
+            <span class="inline-block animated-underline"> Educators</span>
+          </h1>
+          <p class="text-xl text-white opacity-90 mb-8 max-w-3xl mx-auto stagger-item">
+            Meet the dedicated team that shapes the future of our students
+          </p>
+        </div>
       </div>
     </section>
     
-    <!-- INTRODUCTION SECTION -->
-    <section class="py-8 border-b border-gray-200">
-      <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-3xl md:text-4xl font-bold text-[#012E67]">Our Staff</h2>
-        <p class="mt-3 text-gray-600 text-lg">
-          Discover the passionate educators who shape the future of our students.
-        </p>
-      </div>
-    </section>
-    
-    <!-- STAFF CARDS GRID -->
-    <section class="py-16">
-      <div class="max-w-7xl mx-auto">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <!-- STAFF INTRODUCTION -->
+    <section class="py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section heading -->
+        <div class="text-center mb-16">
+          <span class="inline-block py-1 px-3 rounded-full bg-primary bg-opacity-10 text-primary text-sm font-semibold mb-4 stagger-item">
+            OUR TEAM
+          </span>
+          <h2 class="text-4xl md:text-5xl font-bold mb-4 stagger-item">
+            <span class="text-primary">Dedicated</span> 
+            <span class="animated-underline">Professionals</span>
+          </h2>
+          <p class="text-lg text-gray-600 max-w-3xl mx-auto stagger-item">
+            Our passionate educators bring diverse expertise and a shared commitment to excellence, 
+            nurturing each student's unique potential in a supportive Christian environment.
+          </p>
+        </div>
+        
+        <!-- Department Tabs -->
+        <div class="mb-12 flex flex-wrap justify-center border-b border-gray-200">
+          <div class="department-tab active" data-tab="all">All Staff</div>
+          <div class="department-tab" data-tab="leadership">Leadership</div>
+          <div class="department-tab" data-tab="elementary">Elementary</div>
+          <div class="department-tab" data-tab="specialty">Specialty</div>
+        </div>
+        
+        <!-- Staff Cards Grid - All -->
+        <div id="all" class="department-content active grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           
-          <!-- Card : Gloria Freeman-Fromayan -->
-          <div class="bg-gray-50 rounded-lg shadow-lg p-6 hover:shadow-2xl transition">
-            <!-- Placeholder image (à remplacer ultérieurement) -->
-            <img src="assets/images/Rosalind.jpg" alt="Gloria Freeman-Fromayan" class="w-full h-64 object-cover rounded-md">
-            <div class="mt-4">
-              <h3 class="text-2xl font-bold text-[#012E67]">Gloria Freeman-Fromayan</h3>
-              <p class="text-sm text-gray-600 uppercase">Founding Member / Principal</p>
-              <p class="text-xs text-gray-500 mt-1">No Child is left behind | principal@lisabj.org</p>
-              <p class="mt-3 text-gray-700 text-sm">
-                Gloria Freeman-Fromayan is a professional administrator and educator with over 30 years of experience in American-style education. She holds a certificate in International School Leadership, a Master’s Degree in Education, and a Bachelor’s Degree in Elementary Education. Her long and productive career in teaching and administration has enriched her ability to foster a nurturing learning environment.
-              </p>
-              <p class="mt-2 text-sm font-semibold text-[#F58220]">Founder Member Luke International School</p>
+          <!-- Gloria Freeman-Fromayan -->
+          <div class="staff-card bg-white rounded-xl shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="100" data-department="leadership">
+            <div class="staff-image relative">
+              <img src="assets/images/Rosalind.jpg" alt="Gloria Freeman-Fromayan" class="w-full h-72 object-cover">
+              <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary-dark/50 to-transparent opacity-50"></div>
+              <div class="role-badge absolute top-3 right-3 bg-accent text-white text-xs font-bold px-3 py-1 rounded-full">
+                Principal
+              </div>
+              <div class="social-links absolute bottom-3 right-3">
+                <div class="flex space-x-2">
+                  <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-accent hover:bg-accent hover:text-white transition-colors">
+                    <i class="fas fa-envelope"></i>
+                  </a>
+                </div>
+              </div>
             </div>
-          </div>
-          
-          <!-- Card : Samilia Afrifa -->
-          <div class="bg-gray-50 rounded-lg shadow-lg p-6 hover:shadow-2xl transition">
-            <img src="assets/images/Rosalind.jpg" alt="Samilia Afrifa" class="w-full h-64 object-cover rounded-md">
-            <div class="mt-4">
-              <h3 class="text-2xl font-bold text-[#012E67]">Samilia Afrifa</h3>
-              <p class="text-sm text-gray-600 uppercase">Head Teacher &amp; Teacher of Grades 1 and 2</p>
-              <p class="mt-3 text-gray-700 text-sm">
+            <div class="p-6">
+              <h3 class="text-2xl font-bold text-primary mb-1">Samilia Afrifa</h3>
+              <p class="text-accent text-sm font-semibold mb-3">Head Teacher &amp; Teacher of Grades 1 and 2</p>
+              <p class="text-gray-700">
                 Samilia Afrifa is the Head Teacher responsible for motivating students to enjoy learning. She uses her experience to make a significant difference in their lives. Luke International School offers her the opportunity to bring her ambition to life in a purely Christian setting—combining knowledge with the right values from early childhood development.
               </p>
             </div>
           </div>
           
-          <!-- Card : Renee Rutta -->
-          <div class="bg-gray-50 rounded-lg shadow-lg p-6 hover:shadow-2xl transition">
-            <img src="assets/images/Rosalind.jpg" alt="Renee Rutta" class="w-full h-64 object-cover rounded-md">
-            <div class="mt-4">
-              <h3 class="text-2xl font-bold text-[#012E67]">Renee Rutta</h3>
-              <p class="text-sm text-gray-600 uppercase">Teacher of Kindergarten 4</p>
-              <p class="mt-3 text-gray-700 text-sm">
+          <!-- Renee Rutta -->
+          <div class="staff-card bg-white rounded-xl shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="300" data-department="elementary">
+            <div class="staff-image relative">
+              <img src="assets/images/Rosalind.jpg" alt="Renee Rutta" class="w-full h-72 object-cover">
+              <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary-dark/50 to-transparent opacity-50"></div>
+              <div class="role-badge absolute top-3 right-3 bg-accent text-white text-xs font-bold px-3 py-1 rounded-full">
+                Kindergarten 4
+              </div>
+              <div class="social-links absolute bottom-3 right-3">
+                <div class="flex space-x-2">
+                  <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-accent hover:bg-accent hover:text-white transition-colors">
+                    <i class="fas fa-envelope"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-2xl font-bold text-primary mb-1">Renee Rutta</h3>
+              <p class="text-accent text-sm font-semibold mb-3">Teacher of Kindergarten 4</p>
+              <p class="text-gray-700">
                 Renee Rutta is very excited to be a part of Luke International School. Her passion lies in pouring the love of God into her students and using her extensive experience with the A Beka program to develop strong character and academic foundations.
               </p>
             </div>
           </div>
           
-          <!-- Card : Elvina Henries -->
-          <div class="bg-gray-50 rounded-lg shadow-lg p-6 hover:shadow-2xl transition">
-            <img src="assets/images/Rosalind.jpg" alt="Elvina Henries" class="w-full h-64 object-cover rounded-md">
-            <div class="mt-4">
-              <h3 class="text-2xl font-bold text-[#012E67]">Elvina Henries</h3>
-              <p class="text-sm text-gray-600 uppercase">Teacher of Pre-Nursery</p>
-              <p class="mt-3 text-gray-700 text-sm">
+          <!-- Elvina Henries -->
+          <div class="staff-card bg-white rounded-xl shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="400" data-department="elementary">
+            <div class="staff-image relative">
+              <img src="assets/images/Rosalind.jpg" alt="Elvina Henries" class="w-full h-72 object-cover">
+              <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary-dark/50 to-transparent opacity-50"></div>
+              <div class="role-badge absolute top-3 right-3 bg-accent text-white text-xs font-bold px-3 py-1 rounded-full">
+                Pre-Nursery
+              </div>
+              <div class="social-links absolute bottom-3 right-3">
+                <div class="flex space-x-2">
+                  <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-accent hover:bg-accent hover:text-white transition-colors">
+                    <i class="fas fa-envelope"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-2xl font-bold text-primary mb-1">Elvina Henries</h3>
+              <p class="text-accent text-sm font-semibold mb-3">Teacher of Pre-Nursery</p>
+              <p class="text-gray-700">
                 Elvina Henries loves seeing children progress throughout the year. Watching her students learn, from tying a shoelace to reading a new word, is the most rewarding aspect of her job.
               </p>
             </div>
           </div>
           
-          <!-- Card : Liliane Owayo -->
-          <div class="bg-gray-50 rounded-lg shadow-lg p-6 hover:shadow-2xl transition">
-            <img src="assets/images/Rosalind.jpg" alt="Liliane Owayo" class="w-full h-64 object-cover rounded-md">
-            <div class="mt-4">
-              <h3 class="text-2xl font-bold text-[#012E67]">Liliane Owayo</h3>
-              <p class="text-sm text-gray-600 uppercase">Teacher of Kindergarten 5</p>
-              <p class="mt-3 text-gray-700 text-sm">
-                Liliane Owayo has been given the opportunity to work with international students in a safe and Christian environment. She inspires and builds students’ self-concept, impacting knowledge and wisdom while shaping dreams for a better future.
+          <!-- Liliane Owayo -->
+          <div class="staff-card bg-white rounded-xl shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="100" data-department="elementary">
+            <div class="staff-image relative">
+              <img src="assets/images/Rosalind.jpg" alt="Liliane Owayo" class="w-full h-72 object-cover">
+              <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary-dark/50 to-transparent opacity-50"></div>
+              <div class="role-badge absolute top-3 right-3 bg-accent text-white text-xs font-bold px-3 py-1 rounded-full">
+                Kindergarten 5
+              </div>
+              <div class="social-links absolute bottom-3 right-3">
+                <div class="flex space-x-2">
+                  <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-accent hover:bg-accent hover:text-white transition-colors">
+                    <i class="fas fa-envelope"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-2xl font-bold text-primary mb-1">Liliane Owayo</h3>
+              <p class="text-accent text-sm font-semibold mb-3">Teacher of Kindergarten 5</p>
+              <p class="text-gray-700">
+                Liliane Owayo has been given the opportunity to work with international students in a safe and Christian environment. She inspires and builds students' self-concept, impacting knowledge and wisdom while shaping dreams for a better future.
               </p>
             </div>
           </div>
           
-          <!-- Card : Patricia Ajibola Atolagbe -->
-          <div class="bg-gray-50 rounded-lg shadow-lg p-6 hover:shadow-2xl transition">
-            <img src="assets/images/Rosalind.jpg" alt="Patricia Ajibola Atolagbe" class="w-full h-64 object-cover rounded-md">
-            <div class="mt-4">
-              <h3 class="text-2xl font-bold text-[#012E67]">Patricia Ajibola Atolagbe</h3>
-              <p class="text-sm text-gray-600 uppercase">Teacher of Grades 3 and 4</p>
-              <p class="mt-3 text-gray-700 text-sm">
+          <!-- Patricia Ajibola Atolagbe -->
+          <div class="staff-card bg-white rounded-xl shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="200" data-department="elementary">
+            <div class="staff-image relative">
+              <img src="assets/images/Rosalind.jpg" alt="Patricia Ajibola Atolagbe" class="w-full h-72 object-cover">
+              <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary-dark/50 to-transparent opacity-50"></div>
+              <div class="role-badge absolute top-3 right-3 bg-accent text-white text-xs font-bold px-3 py-1 rounded-full">
+                Grades 3-4
+              </div>
+              <div class="social-links absolute bottom-3 right-3">
+                <div class="flex space-x-2">
+                  <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-accent hover:bg-accent hover:text-white transition-colors">
+                    <i class="fas fa-envelope"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-2xl font-bold text-primary mb-1">Patricia Ajibola Atolagbe</h3>
+              <p class="text-accent text-sm font-semibold mb-3">Teacher of Grades 3 and 4</p>
+              <p class="text-gray-700">
                 Luke International School is an educational environment that builds global citizens and dynamic leaders. Patricia Atolagbe is honored to be part of this community, working together with colleagues to ensure every student excels academically while upholding Christian values.
               </p>
             </div>
           </div>
           
-          <!-- Card : Emma Cummins Soclo -->
-          <div class="bg-gray-50 rounded-lg shadow-lg p-6 hover:shadow-2xl transition">
-            <img src="assets/images/Rosalind.jpg" alt="Emma Cummins Soclo" class="w-full h-64 object-cover rounded-md">
-            <div class="mt-4">
-              <h3 class="text-2xl font-bold text-[#012E67]">Emma Cummins Soclo</h3>
-              <p class="text-sm text-gray-600 uppercase">Teacher of Grade 5 and 6</p>
-              <p class="mt-3 text-gray-700 text-sm">
-                Instruct the wise and they will be wiser still; teach the righteous and they will add to their learning. Proverbs 9:9</p>
+          <!-- Emma Cummins Soclo -->
+          <div class="staff-card bg-white rounded-xl shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="300" data-department="elementary">
+            <div class="staff-image relative">
+              <img src="assets/images/Rosalind.jpg" alt="Emma Cummins Soclo" class="w-full h-72 object-cover">
+              <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary-dark/50 to-transparent opacity-50"></div>
+              <div class="role-badge absolute top-3 right-3 bg-accent text-white text-xs font-bold px-3 py-1 rounded-full">
+                Grades 5-6
+              </div>
+              <div class="social-links absolute bottom-3 right-3">
+                <div class="flex space-x-2">
+                  <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-accent hover:bg-accent hover:text-white transition-colors">
+                    <i class="fas fa-envelope"></i>
+                  </a>
+                </div>
+              </div>
             </div>
-          </div>
-          
-          <!-- Card : Liliane Eloi Vlehi -->
-          <div class="bg-gray-50 rounded-lg shadow-lg p-6 hover:shadow-2xl transition">
-            <img src="assets/images/Rosalind.jpg" alt="Liliane Eloi Vlehi" class="w-full h-64 object-cover rounded-md">
-            <div class="mt-4">
-              <h3 class="text-2xl font-bold text-[#012E67]">Liliane Eloi Vlehi</h3>
-              <p class="text-sm text-gray-600 uppercase">Teacher of French</p>
-              <p class="mt-3 text-gray-700 text-sm">
-                Liliane Eloi Vlehi is adept at the art of language. Teaching French at Luke International School is both a privilege and a marvelous challenge, as she leverages 11 years of experience to help children discover and appreciate the beauty of the French language.
+            <div class="p-6">
+              <h3 class="text-2xl font-bold text-primary mb-1">Emma Cummins Soclo</h3>
+              <p class="text-accent text-sm font-semibold mb-3">Teacher of Grade 5 and 6</p>
+              <p class="text-gray-700">
+                "Instruct the wise and they will be wiser still; teach the righteous and they will add to their learning." Proverbs 9:9
               </p>
             </div>
           </div>
           
+          <!-- Liliane Eloi Vlehi -->
+          <div class="staff-card bg-white rounded-xl shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="400" data-department="specialty">
+            <div class="staff-image relative">
+              <img src="assets/images/Rosalind.jpg" alt="Liliane Eloi Vlehi" class="w-full h-72 object-cover">
+              <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary-dark/50 to-transparent opacity-50"></div>
+              <div class="role-badge absolute top-3 right-3 bg-accent text-white text-xs font-bold px-3 py-1 rounded-full">
+                French
+              </div>
+              <div class="social-links absolute bottom-3 right-3">
+                <div class="flex space-x-2">
+                  <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-accent hover:bg-accent hover:text-white transition-colors">
+                    <i class="fas fa-envelope"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-2xl font-bold text-primary mb-1">Liliane Eloi Vlehi</h3>
+              <p class="text-accent text-sm font-semibold mb-3">Teacher of French</p>
+              <p class="text-gray-700">
+                Liliane Eloi Vlehi is adept at the art of language. Teaching French at Luke International School is both a privilege and a marvelous challenge, as she leverages 11 years of experience to help children discover and appreciate the beauty of the French language.
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Staff Cards Grid - Leadership (Filtered View) -->
+        <div id="leadership" class="department-content hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Gloria Freeman-Fromayan -->
+          <div class="staff-card bg-white rounded-xl shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+            <div class="staff-image relative">
+              <img src="assets/images/Rosalind.jpg" alt="Gloria Freeman-Fromayan" class="w-full h-72 object-cover">
+              <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary-dark/50 to-transparent opacity-50"></div>
+              <div class="role-badge absolute top-3 right-3 bg-accent text-white text-xs font-bold px-3 py-1 rounded-full">
+                Principal
+              </div>
+              <div class="social-links absolute bottom-3 right-3">
+                <div class="flex space-x-2">
+                  <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-accent hover:bg-accent hover:text-white transition-colors">
+                    <i class="fas fa-envelope"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-2xl font-bold text-primary mb-1">Gloria Freeman-Fromayan</h3>
+              <p class="text-accent text-sm font-semibold mb-3">Founding Member / Principal</p>
+              <p class="text-gray-500 text-xs mb-4">No Child is left behind • principal@lisabj.org</p>
+              <p class="text-gray-700">
+                Gloria Freeman-Fromayan is a professional administrator and educator with over 30 years of experience in American-style education. She holds a certificate in International School Leadership, a Master's Degree in Education, and a Bachelor's Degree in Elementary Education.
+              </p>
+              <p class="mt-2 text-sm font-semibold text-accent">Founder Member Luke International School</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Staff Cards Grid - Elementary (Filtered View) -->
+        <div id="elementary" class="department-content hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Elementary teachers would be duplicated here -->
+        </div>
+        
+        <!-- Staff Cards Grid - Specialty (Filtered View) -->
+        <div id="specialty" class="department-content hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Specialty teachers would be duplicated here -->
         </div>
       </div>
     </section>
     
-  </main>
-
-
-   <!-- ========== FOOTER ========== -->
-   <footer class="bg-[#012E67] text-white mt-12">
-    <div class="max-w-7xl mx-auto px-4 py-8 flex flex-col sm:flex-row justify-between items-center">
-      <!-- Logo & Copyright -->
-      <div class="mb-4 sm:mb-0 text-center">
-        <img src="assets/images/logo.png" alt="LIS AB Footer Logo" class="h-8 w-auto mb-2">
-        <p class="text-sm">&copy; 2025 Luke International School. All rights reserved.</p>
+    <!-- FACULTY VALUES SECTION -->
+    <section class="py-24 bg-gray-50 relative overflow-hidden">
+      <!-- Background elements -->
+      <div class="absolute -top-64 -right-32 w-96 h-96 bg-primary opacity-5 rounded-full"></div>
+      <div class="absolute -bottom-32 -left-32 w-80 h-80 bg-accent opacity-5 rounded-full"></div>
+      
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <!-- Section heading -->
+        <div class="text-center mb-16">
+          <span class="inline-block py-1 px-3 rounded-full bg-accent bg-opacity-10 text-accent text-sm font-semibold mb-4 stagger-item">
+            OUR COMMITMENT
+          </span>
+          <h2 class="text-4xl md:text-5xl font-bold mb-4 stagger-item">
+            <span class="animated-underline">Faculty</span> 
+            <span class="text-accent">Values</span>
+          </h2>
+          <p class="text-lg text-gray-600 max-w-3xl mx-auto stagger-item">
+            Our educators are united by a shared set of values that guide our approach to teaching and student development.
+          </p>
+        </div>
+        
+        <!-- Values Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Value Card 1 -->
+          <div class="bg-white rounded-xl shadow-lg p-8 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-xl" data-aos="fade-up" data-aos-delay="100">
+            <div class="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mb-6">
+              <i class="fas fa-heart text-primary text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-primary mb-4">Christian Values</h3>
+            <p class="text-gray-700">
+              We integrate faith and learning, providing an education grounded in Christian principles that nurtures both academic excellence and spiritual growth.
+            </p>
+          </div>
+          
+          <!-- Value Card 2 -->
+          <div class="bg-white rounded-xl shadow-lg p-8 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-xl" data-aos="fade-up" data-aos-delay="200">
+            <div class="w-16 h-16 bg-accent bg-opacity-10 rounded-full flex items-center justify-center mb-6">
+              <i class="fas fa-users text-accent text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-accent mb-4">Global Perspective</h3>
+            <p class="text-gray-700">
+              Our international community celebrates cultural diversity, preparing students to thrive as confident global citizens in an interconnected world.
+            </p>
+          </div>
+          
+          <!-- Value Card 3 -->
+          <div class="bg-white rounded-xl shadow-lg p-8 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-xl" data-aos="fade-up" data-aos-delay="300">
+            <div class="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mb-6">
+              <i class="fas fa-star text-primary text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-primary mb-4">Individual Potential</h3>
+            <p class="text-gray-700">
+              We recognize and nurture each student's unique gifts and abilities, ensuring no child is left behind as they develop into confident, capable learners.
+            </p>
+          </div>
+        </div>
       </div>
-      <!-- Icônes sociales -->
-      <div class="flex space-x-4">
-        <a href="#" aria-label="Facebook" class="hover:text-[#F58220] transition">
-          <i class="fab fa-facebook-f fa-lg"></i>
-        </a>
-        <a href="#" aria-label="YouTube" class="hover:text-[#F58220] transition">
-          <i class="fab fa-youtube fa-lg"></i>
-        </a>
-        <a href="#" aria-label="Twitter" class="hover:text-[#F58220] transition">
-          <i class="fab fa-twitter fa-lg"></i>
-        </a>
+    </section>
+    
+    <!-- JOIN OUR TEAM SECTION -->
+    <section class="py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-gradient-to-r from-primary to-primary-dark rounded-3xl overflow-hidden shadow-xl">
+          <div class="grid grid-cols-1 md:grid-cols-2">
+            <!-- Text content -->
+            <div class="p-12 md:p-16 flex flex-col justify-center">
+              <span class="inline-block py-1 px-3 rounded-full bg-white bg-opacity-10 text-white text-sm font-semibold mb-6">
+                CAREERS
+              </span>
+              <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+                Join Our Teaching Team
+              </h2>
+              <p class="text-white text-opacity-90 mb-8 leading-relaxed">
+                We're always looking for passionate educators who share our vision and values. If you're committed to excellence and want to make a meaningful impact on students' lives, we'd love to hear from you.
+              </p>
+              <div class="space-y-4 md:space-y-0 md:space-x-4 flex flex-col md:flex-row">
+                <a href="careers.html" class="inline-block px-8 py-4 bg-accent hover:bg-accent-light text-white font-bold rounded-full transition-all transform hover:scale-105 text-center">
+                  View Openings
+                </a>
+                <a href="contact.html" class="inline-block px-8 py-4 bg-transparent text-white font-bold rounded-full transition-all border-2 border-white border-opacity-30 hover:border-opacity-70 text-center">
+                  Contact Us
+                </a>
+              </div>
+            </div>
+            
+            <!-- Image -->
+            <div class="relative h-full min-h-[300px] md:min-h-0">
+              <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('assets/images/5-1.jpg');"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <!-- FOOTER -->
+  <footer class="bg-primary relative overflow-hidden">
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="circle-bg absolute w-64 h-64 rounded-full bg-accent opacity-10 top-[-200px] right-[-200px]"></div>
+      <div class="circle-bg absolute w-32 h-32 rounded-full bg-accent opacity-10 bottom-40 left-1/4"></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 pt-16 pb-8 relative z-10">
+      <!-- Footer content -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div>
+          <img src="assets/images/logo.png" alt="LIS Logo" class="h-16 mb-4">
+          <p class="text-white opacity-70 text-sm">
+            Luke International School provides a world-class education in a vibrant and diverse community.
+          </p>
+        </div>
+        <div>
+          <h4 class="text-white font-bold mb-4 text-lg">Quick Links</h4>
+          <ul class="space-y-2">
+            <li><a href="about.html" class="text-white opacity-70 hover:text-accent transition-colors">About Us</a></li>
+            <li><a href="admissions.html" class="text-white opacity-70 hover:text-accent transition-colors">Admissions</a></li>
+            <li><a href="academics.html" class="text-white opacity-70 hover:text-accent transition-colors">Academics</a></li>
+            <li><a href="gallery.html" class="text-white opacity-70 hover:text-accent transition-colors">Events</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-bold mb-4 text-lg">Contact</h4>
+          <address class="not-italic text-white opacity-70 text-sm">
+            <p class="mb-2">123 Education Avenue</p>
+            <p class="mb-2">International District</p>
+            <p class="mb-2">info@lukeinternational.edu</p>
+            <p>+1 (555) 123-4567</p>
+          </address>
+        </div>
+        <div>
+          <h4 class="text-white font-bold mb-4 text-lg">Follow Us</h4>
+          <div class="flex space-x-4">
+            <a href="#" class="w-10 h-10 rounded-full bg-white bg-opacity-10 flex items-center justify-center text-white hover:bg-accent transition-colors">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-white bg-opacity-10 flex items-center justify-center text-white hover:bg-accent transition-colors">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-white bg-opacity-10 flex items-center justify-center text-white hover:bg-accent transition-colors">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-white bg-opacity-10 flex items-center justify-center text-white hover:bg-accent transition-colors">
+              <i class="fab fa-youtube"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <hr class="border-white border-opacity-10 mb-8">
+      
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <p class="text-white opacity-70 text-sm">&copy; 2025 Luke International School. All rights reserved.</p>
+        <div class="flex space-x-6 mt-4 md:mt-0">
+          <a href="privacy-policy.html" class="text-white opacity-70 text-sm hover:text-accent transition-colors">Privacy Policy</a>
+          <a href="terms.html" class="text-white opacity-70 text-sm hover:text-accent transition-colors">Terms of Use</a>
+          <a href="sitemap.html" class="text-white opacity-70 text-sm hover:text-accent transition-colors">Sitemap</a>
+        </div>
       </div>
     </div>
   </footer>
+  
+ <script>
 
-  <!-- ========== SCRIPTS ========== -->
-  <script>
-    // Mobile menu toggle
-    document.addEventListener('DOMContentLoaded', () => {
-      const menuBtn = document.getElementById('menu-btn');
-      const mobileMenu = document.getElementById('mobile-menu');
-      menuBtn.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-        // Optionnel : gestion du scroll du body
-        if (!mobileMenu.classList.contains('hidden')) {
-          document.body.style.overflow = 'hidden';
+  // Gestion des dropdowns du menu principal - approche click plutôt que hover
+  document.addEventListener('DOMContentLoaded', function() {
+    const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+    
+    // Ferme tous les dropdowns
+    function closeAllDropdowns() {
+      document.querySelectorAll('.dropdown-content').forEach(dropdown => {
+        dropdown.classList.add('hidden');
+      });
+      document.querySelectorAll('.dropdown-toggle i').forEach(icon => {
+        icon.classList.remove('rotate-180');
+      });
+    }
+    
+    // Ajoute les écouteurs d'événements pour chaque bouton de menu
+    dropdownToggles.forEach(toggle => {
+      toggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        
+        const dropdownId = this.getAttribute('data-dropdown');
+        const dropdown = document.getElementById(dropdownId);
+        const icon = this.querySelector('i');
+        
+        // Si le dropdown cliqué est déjà ouvert, on le ferme
+        if (!dropdown.classList.contains('hidden')) {
+          dropdown.classList.add('hidden');
+          icon.classList.remove('rotate-180');
         } else {
-          document.body.style.overflow = '';
+          // Sinon on ferme tous les dropdowns et on ouvre celui-ci
+          closeAllDropdowns();
+          dropdown.classList.remove('hidden');
+          icon.classList.add('rotate-180');
         }
       });
       
-      // Gestion des dropdowns mobiles
-      const dropdownBtns = document.querySelectorAll('.mobile-dropdown-btn');
-      dropdownBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const targetId = btn.getAttribute('data-target');
-          const targetDropdown = document.getElementById(targetId);
-          const arrow = btn.querySelector('.fa-chevron-down');
-          if (targetDropdown) {
-            targetDropdown.classList.toggle('hidden');
-            if (targetDropdown.classList.contains('hidden')) {
-              arrow.classList.remove('transform', 'rotate-180');
-            } else {
-              arrow.classList.add('transform', 'rotate-180');
-            }
-          }
-        });
+      // Ajoute un écouteur d'événements pour le hover
+      toggle.addEventListener('mouseenter', function() {
+        closeAllDropdowns();
+        const dropdownId = this.getAttribute('data-dropdown');
+        const dropdown = document.getElementById(dropdownId);
+        const icon = this.querySelector('i');
+        
+        dropdown.classList.remove('hidden');
+        icon.classList.add('rotate-180');
       });
     });
     
-    // Slideshow avec crossfade pour le hero
-    const heroSlides = [
-      "assets/images/5-1.jpg",
-      "assets/images/6-1.jpg",
-      "assets/images/14-1.jpg",
-      "assets/images/12-1.jpg"
-    ];
-    const preloadedImages = [];
-    heroSlides.forEach(src => {
-      const img = new Image();
-      img.src = src;
-      preloadedImages.push(img);
+    // Permet de cliquer à l'intérieur des dropdowns sans les fermer
+    document.querySelectorAll('.dropdown-content').forEach(dropdown => {
+      dropdown.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+      
+      // Éviter la fermeture quand on passe la souris dans le dropdown
+      dropdown.addEventListener('mouseenter', function() {
+        this.classList.remove('hidden');
+        const toggleId = this.id;
+        document.querySelector(`[data-dropdown="${toggleId}"] i`).classList.add('rotate-180');
+      });
+      
+      // Fermer quand on quitte le dropdown si on ne va pas au toggle
+      dropdown.addEventListener('mouseleave', function() {
+        // Petit délai pour éviter la fermeture pendant le passage souris
+        setTimeout(() => {
+          if (!document.querySelector(`[data-dropdown="${this.id}"]:hover`) && 
+              !document.querySelector(`#${this.id}:hover`)) {
+            this.classList.add('hidden');
+            document.querySelector(`[data-dropdown="${this.id}"] i`).classList.remove('rotate-180');
+          }
+        }, 100);
+      });
     });
     
-    let currentSlide = 0;
-    const slide1 = document.getElementById("hero-slide-1");
-    const slide2 = document.getElementById("hero-slide-2");
+    // Fermer les dropdowns quand on clique ailleurs sur la page
+    document.addEventListener('click', closeAllDropdowns);
     
-    // Fallback de couleur pour éviter flash
-    slide1.style.backgroundColor = "#000";
-    slide2.style.backgroundColor = "#000";
-    
-    slide1.style.backgroundImage = `url(${heroSlides[currentSlide]})`;
-    
-    function changeSlide() {
-      const nextSlideIndex = (currentSlide + 1) % heroSlides.length;
-      const nextImg = preloadedImages[nextSlideIndex];
-      if (!nextImg.complete) {
-        nextImg.onload = doTransition;
-      } else {
-        doTransition();
+    // Fermer les dropdowns quand on quitte la zone de navigation
+    document.querySelector('nav').addEventListener('mouseleave', function() {
+      setTimeout(closeAllDropdowns, 300);
+    });
+  });
+  document.addEventListener('DOMContentLoaded', function() {
+  // Initialize AOS
+  AOS.init({ 
+    duration: 800,
+    easing: 'ease-in-out',
+    once: true,
+    disable: 'mobile' // Disable on mobile for better performance
+  });
+  
+  // Loader hide
+  setTimeout(() => {
+    const loader = document.getElementById('page-loader');
+    loader.classList.add('hidden');
+    setTimeout(() => {
+      loader.style.display = 'none';
+    }, 800); // Match transition duration
+  }, 1500);
+  
+  // Initialize carousel for hero section
+  const slides = document.querySelectorAll('.carousel-slide');
+  let currentSlide = 0;
+  
+  function showSlide(index) {
+    slides.forEach(slide => {
+      slide.style.opacity = '0';
+    });
+    slides[index].style.opacity = '1';
+  }
+  
+  function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+  }
+  
+  // Show the first slide
+  showSlide(0);
+  
+  // Auto-advance slides
+  setInterval(nextSlide, 5000);
+  
+  // Initialize staggered animation for hero elements
+  const heroStaggerItems = document.querySelectorAll('.stagger-item');
+  
+  setTimeout(() => {
+    heroStaggerItems.forEach((item, index) => {
+      setTimeout(() => {
+        item.classList.add('visible');
+      }, 300 * index);
+    });
+  }, 500);
+  
+  // Reveal animations on scroll
+  const revealElements = document.querySelectorAll('.animated-underline');
+  
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        revealObserver.unobserve(entry.target);
       }
+    });
+  }, { threshold: 0.2 });
+  
+  revealElements.forEach(el => {
+    revealObserver.observe(el);
+  });
+  
+  // Tab functionality for department filtering
+  const departmentTabs = document.querySelectorAll('.department-tab');
+  const departmentContents = document.querySelectorAll('.department-content');
+  
+  departmentTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Remove active class from all tabs
+      departmentTabs.forEach(t => t.classList.remove('active'));
       
-      function doTransition() {
-        slide2.style.backgroundImage = `url(${heroSlides[nextSlideIndex]})`;
-        slide1.classList.remove("opacity-100");
-        slide1.classList.add("opacity-0");
-        slide2.classList.remove("opacity-0");
-        slide2.classList.add("opacity-100");
-        setTimeout(() => {
-          slide1.style.backgroundImage = `url(${heroSlides[nextSlideIndex]})`;
-          slide1.classList.remove("opacity-0");
-          slide1.classList.add("opacity-100");
-          slide2.classList.remove("opacity-100");
-          slide2.classList.add("opacity-0");
-          currentSlide = nextSlideIndex;
-        }, 1000);
+      // Add active class to clicked tab
+      tab.classList.add('active');
+      
+      // Hide all content sections
+      departmentContents.forEach(content => {
+        content.classList.remove('active');
+        content.classList.add('hidden');
+      });
+      
+      // Show the corresponding content
+      const targetContent = document.getElementById(tab.getAttribute('data-tab'));
+      if (targetContent) {
+        targetContent.classList.add('active');
+        targetContent.classList.remove('hidden');
+      }
+    });
+  });
+  
+  // Header scroll effect
+  const header = document.getElementById('main-header');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) { 
+      header.classList.add('bg-primary', 'shadow-lg'); 
+    } else { 
+      header.classList.remove('shadow-lg');
+      if (window.scrollY === 0) {
+        header.classList.add('bg-opacity-95');
       }
     }
-    setInterval(changeSlide, 5000);
-  </script>
-</body>
-</html>
+  });
+  
+  // Mobile menu toggle
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileCloseBtn = document.getElementById('mobile-close-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const hamburger = mobileMenuBtn.querySelector('.hamburger');
+  
+  function toggleMobileMenu() {
+    mobileMenu.classList.toggle('translate-x-full');
+    hamburger.classList.toggle('open');
+    document.body.classList.toggle('overflow-hidden');
+  }
+  
+  mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+  mobileCloseBtn.addEventListener('click', toggleMobileMenu);
+  
+  // Mobile dropdowns
+  document.querySelectorAll('.mobile-dropdown-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const content = btn.nextElementSibling;
+      const icon = btn.querySelector('i');
+      
+      // Toggle dropdown visibility
+      if (content.classList.contains('hidden')) {
+        content.classList.remove('hidden');
+        content.style.maxHeight = content.scrollHeight + 'px';
+        icon.classList.add('rotate-180');
+      } else {
+        content.style.maxHeight = '0px';
+        icon.classList.remove('rotate-180');
+        setTimeout(() => {
+          content.classList.add('hidden');
+        }, 300); // Match transition duration
+      }
+    });
+  });
+  
+  // Custom cursor (displayed on desktop only)
+  if (window.innerWidth > 768) {
+    const cursor = document.getElementById('custom-cursor');
+    const cursorDot = document.getElementById('cursor-dot');
+    
+    if (cursor && cursorDot) {
+      cursor.style.display = 'block';
+      cursorDot.style.display = 'block';
+      
+      document.addEventListener('mousemove', (e) => {
+        // Add a small delay for smooth following
+        requestAnimationFrame(() => {
+          cursor.style.left = e.clientX + 'px';
+          cursor.style.top = e.clientY + 'px';
+          cursorDot.style.left = e.clientX + 'px';
+          cursorDot.style.top = e.clientY + 'px';
+        });
+      });
+      
+      // Enhance cursor effect on interactive elements
+      const interactiveElements = document.querySelectorAll('a, button, input, textarea, .staff-card');
+      interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          cursor.style.width = '50px';
+          cursor.style.height = '50px';
+          cursor.style.borderColor = 'rgba(245,130,32,0.8)';
+          cursorDot.style.width = '4px';
+          cursorDot.style.height = '4px';
+        });
+        
+        el.addEventListener('mouseleave', () => {
+          cursor.style.width = '40px';
+          cursor.style.height = '40px';
+          cursor.style.borderColor = 'rgba(245,130,32,0.5)';
+          cursorDot.style.width = '8px';
+          cursorDot.style.height = '8px';
+        });
+      });
+    }
+  }
+});
+ </script>
+    
+  </body>
+
+  </html>
