@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -555,6 +557,20 @@
       background-color: inherit;
       border-top-left-radius: 50% 100%;
       border-top-right-radius: 50% 100%;
+    }
+    
+    /* Dropdown Modification - Keep hover and add click functionality */
+    .group .absolute {
+      display: none;
+    }
+    
+    .group:hover .absolute {
+      display: block;
+    }
+    
+    /* For click functionality, we'll toggle the 'hidden' class with JavaScript */
+    .absolute:not(.hidden) {
+      display: block !important;
     }
   </style>
 </head>
@@ -1531,38 +1547,72 @@
           }
         });
       });
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-    // Configuration du carrousel d'images
-    const slides = document.querySelectorAll('.carousel-slide');
-    let currentSlide = 0;
-    
-    // Fonction pour afficher une slide
-    function showSlide(index) {
-      // Masquer toutes les slides
-      slides.forEach(slide => {
-        slide.style.opacity = 0;
-        slide.style.zIndex = 0;
+      
+      // Configuration du carrousel d'images
+      const slides = document.querySelectorAll('.carousel-slide');
+      if (slides.length > 0) {
+        let currentSlide = 0;
+        
+        // Fonction pour afficher une slide
+        function showSlide(index) {
+          // Masquer toutes les slides
+          slides.forEach(slide => {
+            slide.style.opacity = 0;
+            slide.style.zIndex = 0;
+          });
+          
+          // Afficher la slide actuelle
+          slides[index].style.opacity = 1;
+          slides[index].style.zIndex = 1;
+        }
+        
+        // Afficher la première slide au chargement
+        showSlide(currentSlide);
+        
+        // Fonction pour passer à la slide suivante
+        function nextSlide() {
+          currentSlide = (currentSlide + 1) % slides.length;
+          showSlide(currentSlide);
+        }
+        
+        // Changer d'image toutes les 5 secondes
+        setInterval(nextSlide, 5000);
+      }
+      
+      // Add click handling for desktop dropdowns - NOUVELLE FONCTIONNALITÉ
+      const dropdownButtons = document.querySelectorAll('.nav-link.inline-flex');
+      
+      dropdownButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          // Find the dropdown content
+          const dropdown = this.parentElement.querySelector('.absolute');
+          
+          // Toggle the dropdown visibility
+          if (dropdown.classList.contains('hidden')) {
+            // Hide all other open dropdowns first
+            document.querySelectorAll('.group .absolute:not(.hidden)').forEach(openDropdown => {
+              openDropdown.classList.add('hidden');
+            });
+            
+            // Show this dropdown
+            dropdown.classList.remove('hidden');
+          } else {
+            // Hide this dropdown if it's already visible
+            dropdown.classList.add('hidden');
+          }
+        });
       });
       
-      // Afficher la slide actuelle
-      slides[index].style.opacity = 1;
-      slides[index].style.zIndex = 1;
-    }
-    
-    // Afficher la première slide au chargement
-    showSlide(currentSlide);
-    
-    // Fonction pour passer à la slide suivante
-    function nextSlide() {
-      currentSlide = (currentSlide + 1) % slides.length;
-      showSlide(currentSlide);
-    }
-    
-    // Changer d'image toutes les 5 secondes
-    setInterval(nextSlide, 5000);
-  });
+      // Close dropdowns when clicking elsewhere on the page
+      document.addEventListener('click', function() {
+        document.querySelectorAll('.group .absolute:not(.hidden)').forEach(dropdown => {
+          dropdown.classList.add('hidden');
+        });
+      });
+    });
   </script>
 </body>
 </html>
