@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,105 +68,80 @@
     body { font-family: 'Poppins', sans-serif; overflow-x: hidden; }
     
     /* Styles pour le carrousel du hero */
-    .hero-container {
-      position: relative;
-      height: 100vh;
-      width: 100%;
-      overflow: hidden;
-    }
-    
-    .image-carousel {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-    }
-    
-    .carousel-slide {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-size: cover;
-      background-position: center;
-      opacity: 0;
-      transition: opacity 1.5s ease-in-out;
-    }
-    
-    /* CORRECTION IMPORTANTE: Ajout d'espace pour la navbar fixe */
-    main {
-      padding-top: 76px; /* Hauteur de la navbar */
-    }
-    
-    .hero-board {
-      position: relative;
-      min-height: 50vh;
-      width: 100%;
-      overflow: hidden;
-      margin-top: -76px; /* Compensation pour remonter le hero sous la navbar */
-      padding-top: 76px; /* Espace pour que le contenu du hero soit visible */
-    }
-    
-    @media (max-width: 768px) {
-      main {
-        padding-top: 60px; /* Ajustez selon la hauteur mobile de votre navbar */
-      }
-      
-      .hero-board {
-        margin-top: -60px;
-        padding-top: 60px;
-      }
-    }
-    
-    /* Scroll indicator */
-    .scroll-indicator {
-      position: absolute;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      z-index: 10;
-    }
-    
-    .scroll-icon {
-      width: 30px;
-      height: 50px;
-      border: 2px solid rgba(255, 255, 255, 0.5);
-      border-radius: 15px;
-      display: flex;
-      justify-content: center;
-      padding-top: 10px;
-    }
-    
-    .scroll-dot {
-      width: 6px;
-      height: 6px;
-      background-color: #fff;
-      border-radius: 50%;
-      animation: scroll-down 2s ease infinite;
-    }
-    
-    @keyframes scroll-down {
-      0% {
-        opacity: 0;
-        transform: translateY(0);
-      }
-      40% {
-        opacity: 1;
-      }
-      80% {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      100% {
-        opacity: 0;
-      }
-    }
+.hero-container {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.image-carousel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.carousel-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+}
+
+.scroll-icon {
+  width: 30px;
+  height: 50px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+}
+
+.scroll-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #fff;
+  border-radius: 50%;
+  animation: scroll-down 2s ease infinite;
+}
+
+@keyframes scroll-down {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  40% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 0;
+  }
+}
     /* Navbar & Hamburger */
     header { transition: background 0.3s, box-shadow 0.3s; }
     .nav-link {
@@ -245,8 +222,6 @@
       overflow: hidden;
       background-color: #012E67;
       background: linear-gradient(135deg, #001b3e 0%, #012E67 70%, #03417e 100%);
-      margin-top: -76px; /* Compensation pour la navbar */
-      padding-top: 76px; /* Espace pour que le contenu soit visible */
     }
     
     .hero-background {
@@ -736,9 +711,7 @@
   </header>
   
   <!-- MAIN CONTENT -->
-  <main>
-    <!-- Vous pouvez insérer votre contenu ici -->
-  </main>
+
   
   <!-- FOOTER -->
   <footer class="bg-primary relative overflow-hidden">
@@ -1115,7 +1088,7 @@
         setInterval(nextSlide, 5000);
       }
       
-      // Add click handling for desktop dropdowns
+      // Add click handling for desktop dropdowns - NOUVELLE FONCTIONNALITÉ
       const dropdownButtons = document.querySelectorAll('.nav-link.inline-flex');
       
       dropdownButtons.forEach(btn => {
